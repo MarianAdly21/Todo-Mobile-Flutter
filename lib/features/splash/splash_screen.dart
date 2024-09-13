@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:todo_mobile/features/home/home_screen.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
@@ -8,6 +11,10 @@ class SplashScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Timer(const Duration(seconds: 3), () {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) =>const HomeScreen()));
+    });
     return Scaffold(
       backgroundColor: AppColors.splashBackground,
       body: Padding(

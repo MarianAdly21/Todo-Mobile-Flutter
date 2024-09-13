@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 /// any new color or existing color will have a const with its value
 /// there is a stand alone variable for any widget, text, image or icon
 
-abstract final  class AppColors {
+abstract final class AppColors {
   const AppColors._();
 
   static const _black = Colors.black;
@@ -12,11 +12,13 @@ abstract final  class AppColors {
   static const _transparent = Colors.transparent;
   static const _red = Colors.red;
   static const _alizarinCrimson = Color(0xffDB2323);
-
-
+  static const _redsolid = Color(0xffFF0000);
 
   /// Splash
   static const splashBackground = _alizarinCrimson;
+
+  /// Home
+  static const gridAndListIcon = _redsolid;
 }
 
 ///
