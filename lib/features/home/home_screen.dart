@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
+import 'package:todo_mobile/features/home/widgets/home_screen_body.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -34,6 +35,10 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
+
+
+
+      body: HomeScreenBody(),
     );
   }
 }
