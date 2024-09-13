@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:todo_mobile/res/app_asset_paths.dart';
+import 'package:todo_mobile/res/app_colors.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -7,7 +9,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xffFF4444),
+      backgroundColor: AppColors.splashBackground,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 35),
         child: Column(
@@ -31,13 +33,11 @@ class SplashScreen extends StatelessWidget {
             ),
             const SizedBox(height: 48),
             Expanded(
-              child: Image.asset(
-                'assets/images/todo_image.png',
-              ),
+              child: Image.asset(AppAssetPaths.appLogo),
             ),
             const SizedBox(height: 102),
             SvgPicture.asset(
-              'assets/svg/Group 7.svg',
+              AppAssetPaths.lineSplashIcon,
               height: 71,
               width: 215,
             ),
@@ -51,7 +51,7 @@ class SplashScreen extends StatelessWidget {
                   style: TextStyle(
                       fontSize: 15,
                       fontWeight: FontWeight.w800,
-                      color: const Color(0xffFFFFFF).withOpacity(0.5)),
+                      color: Colors.white.withOpacity(0.5)),
                 ),
               ),
             ),
@@ -62,7 +62,7 @@ class SplashScreen extends StatelessWidget {
                 child: Text(
                   'Consistancy',
                   style: TextStyle(
-                      color: Color(0xffFFFFFF),
+                      color: Colors.white,
                       fontSize: 20,
                       fontWeight: FontWeight.w800),
                 ),
@@ -71,7 +71,7 @@ class SplashScreen extends StatelessWidget {
             Align(
               alignment: AlignmentDirectional.centerEnd,
               child: SvgPicture.asset(
-                "assets/svg/Vector.svg",
+                AppAssetPaths.cupSplashIcon,
                 width: 50,
                 height: 50,
               ),
