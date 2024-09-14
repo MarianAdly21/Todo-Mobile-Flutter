@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todo_mobile/features/home/widgets/custom_task_item.dart';
+import 'package:todo_mobile/features/home/widgets/task_item_list.dart';
 
 class HomeScreenBody extends StatelessWidget {
   const HomeScreenBody({super.key});
@@ -8,9 +8,10 @@ class HomeScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return const CustomScrollView(
       slivers: [
-         SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsetsDirectional.only(start: 20, end: 39, top: 49),
+            padding: EdgeInsetsDirectional.only(
+                start: 20, end: 39, top: 49, bottom: 27),
             child: Text(
               'Whats on your mind?',
               style: TextStyle(
@@ -21,11 +22,8 @@ class HomeScreenBody extends StatelessWidget {
             ),
           ),
         ),
-        SliverToBoxAdapter(
-          child: TaskItem(),
-        )
+        TaskItemList(),
       ],
     );
   }
 }
-
