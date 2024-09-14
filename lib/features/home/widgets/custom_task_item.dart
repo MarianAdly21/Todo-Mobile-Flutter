@@ -11,8 +11,6 @@ class TaskItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 329,
-      height: 99,
       decoration: BoxDecoration(
         color: AppColors.colorTaskItem,
         borderRadius: BorderRadius.circular(20),
