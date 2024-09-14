@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_mobile/features/home/widgets/custom_bottom_navigationbar.dart';
 import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
 import 'package:todo_mobile/features/home/widgets/home_screen_body.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
@@ -9,6 +10,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const CustomBottomNavigationBar(),
       appBar: AppBar(
         leadingWidth: 90,
         leading: Padding(
@@ -35,10 +37,7 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-
-
-
-      body:const HomeScreenBody(),
+      body: const HomeScreenBody(),
     );
   }
 }
