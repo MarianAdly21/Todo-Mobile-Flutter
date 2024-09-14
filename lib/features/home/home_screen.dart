@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
 
 
 
-      body: HomeScreenBody(),
+      body:const HomeScreenBody(),
     );
   }
 }

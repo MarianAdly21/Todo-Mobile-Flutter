@@ -13,12 +13,14 @@ abstract final class AppColors {
   static const _red = Colors.red;
   static const _alizarinCrimson = Color(0xffDB2323);
   static const _redsolid = Color(0xffFF0000);
+  static const _coralRed = Color(0xffFF4444);
 
   /// Splash
   static const splashBackground = _alizarinCrimson;
 
   /// Home
   static const gridAndListIcon = _redsolid;
+  static const colorTaskItem = _coralRed;
 }
 
 ///
