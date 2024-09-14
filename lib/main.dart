@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo_mobile/features/home/screens/home_screen.dart';
-import 'package:todo_mobile/features/splash/splash_screen.dart';
 
-void main() {
+void main() async {
+ 
   runApp(const TodoApp());
 }
 
