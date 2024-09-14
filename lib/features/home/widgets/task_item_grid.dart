@@ -8,7 +8,9 @@ class TaskItemGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SliverGrid.builder(
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      sliver: SliverGrid.builder(
         //padding: const EdgeInsets.symmetric(horizontal: 20),
         //   physics: const NeverScrollableScrollPhysics(),
         //  shrinkWrap: true,
@@ -20,8 +22,11 @@ class TaskItemGrid extends StatelessWidget {
         ),
         itemBuilder: (context, index) {
           return _taskContant();
-        });
+        },
+      ),
+    );
   }
+
 ///////////////////////////////////////////////////////////
 //////////////////// Widget methods ///////////////////////
 ///////////////////////////////////////////////////////////
