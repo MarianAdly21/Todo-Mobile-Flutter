@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_mobile/features/home/cubits/notes_cubit/notes_cubit.dart';
 import 'package:todo_mobile/features/home/widgets/custom_bottom_navigation_bar.dart';
 import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
-import 'package:todo_mobile/features/home/widgets/task_item_grid.dart';
 import 'package:todo_mobile/features/home/widgets/task_item_list.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 
@@ -10,10 +11,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: const CustomBottomNavigationBar(),
-      appBar: _homeAppBarWidget(),
-      body: _pageContent(),
+    return BlocProvider(
+      create: (context) => NoteCubit(),
+      child: Scaffold(
+        bottomNavigationBar: const CustomBottomNavigationBar(),
+        appBar: _homeAppBarWidget(),
+        body: _pageContent(),
+      ),
     );
   }
 
