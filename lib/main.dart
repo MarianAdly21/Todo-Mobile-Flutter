@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:todo_mobile/features/home/models/note_model.dart';
 import 'package:todo_mobile/features/home/screens/home_screen.dart';
 
 void main() async {
   await Hive.initFlutter();
- await Hive.openBox("noteBox");
+  Hive.registerAdapter(NoteModelAdapter());
+  await Hive.openBox<NoteModel>("noteBox");
 
   runApp(const TodoApp());
 }
