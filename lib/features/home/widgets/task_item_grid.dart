@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
 class TaskItemGrid extends StatelessWidget {
-  const TaskItemGrid({super.key});
-
+  const TaskItemGrid({super.key, required this.tasks});
+  final List<TaskModel> tasks;
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
@@ -14,14 +15,14 @@ class TaskItemGrid extends StatelessWidget {
         //padding: const EdgeInsets.symmetric(horizontal: 20),
         //   physics: const NeverScrollableScrollPhysics(),
         //  shrinkWrap: true,
-        itemCount: 9,
+        itemCount: tasks.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 22,
           mainAxisSpacing: 21,
         ),
         itemBuilder: (context, index) {
-          return _taskContant();
+          return _taskContant(task: tasks[index]);
         },
       ),
     );
@@ -31,7 +32,7 @@ class TaskItemGrid extends StatelessWidget {
 //////////////////// Widget methods ///////////////////////
 ///////////////////////////////////////////////////////////
 
-  Widget _taskContant() {
+  Widget _taskContant({required TaskModel task}) {
     return Container(
       width: 164,
       // height: 174,
@@ -42,22 +43,23 @@ class TaskItemGrid extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsetsDirectional.only(start: 9, top: 21, bottom: 21),
+          Padding(
+            padding:
+                const EdgeInsetsDirectional.only(start: 9, top: 21, bottom: 21),
             child: Text(
-              "Pay Emma",
-              style: TextStyle(
+              task.title,
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w700,
                 color: Colors.white,
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsetsDirectional.only(start: 17),
+          Padding(
+            padding: const EdgeInsetsDirectional.only(start: 17),
             child: Text(
-              "20 dollars for manga ",
-              style: TextStyle(
+              task.content,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w300,
                 color: Colors.white,

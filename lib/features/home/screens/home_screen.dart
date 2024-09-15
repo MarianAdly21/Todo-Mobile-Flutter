@@ -1,22 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_mobile/features/home/cubits/notes_cubit/notes_cubit.dart';
+import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
+import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_state.dart';
+import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/features/home/widgets/custom_bottom_navigation_bar.dart';
 import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
+import 'package:todo_mobile/features/home/widgets/task_item_grid.dart';
 import 'package:todo_mobile/features/home/widgets/task_item_list.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  bool isGrid = false;
+  List<TaskModel> tasks = [];
+  @override
+  void initState() {
+    _getAllTasks();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => NoteCubit(),
-      child: Scaffold(
-        bottomNavigationBar: const CustomBottomNavigationBar(),
-        appBar: _homeAppBarWidget(),
-        body: _pageContent(),
+    return Scaffold(
+      bottomNavigationBar: const CustomBottomNavigationBar(),
+      appBar: _homeAppBarWidget(),
+      body: BlocListener<TasksCubit, TasksState>(
+        listener: (context, state) {
+          if (state is ConvertUiState) {
+            isGrid = state.isGrid;
+          }
+        },
+        child: _pageContent(),
       ),
     );
   }
@@ -26,9 +46,9 @@ class HomeScreen extends StatelessWidget {
 ///////////////////////////////////////////////////////////
 
   Widget _pageContent() {
-    return const CustomScrollView(
+    return CustomScrollView(
       slivers: [
-        SliverToBoxAdapter(
+        const SliverToBoxAdapter(
           child: Padding(
             padding: EdgeInsetsDirectional.only(
                 start: 20, end: 39, top: 49, bottom: 27),
@@ -42,7 +62,22 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
         ),
-        TaskItemList(),
+        BlocBuilder<TasksCubit, TasksState>(
+          builder: (context, state) {
+            if (state is LoadedTasksSuccessState) {
+              tasks = state.tasks;
+            }
+            if (state is LoadedTasksSuccessState || state is ConvertUiState) {
+              return isGrid
+                  ? TaskItemGrid(
+                      tasks: tasks,
+                    )
+                  : TaskItemList(task: tasks);
+            } else {
+              return SizedBox();
+            }
+          },
+        )
       ],
     );
   }
@@ -50,12 +85,7 @@ class HomeScreen extends StatelessWidget {
   AppBar _homeAppBarWidget() {
     return AppBar(
       leadingWidth: 90,
-      leading: Padding(
-          padding: const EdgeInsetsDirectional.only(start: 24, end: 35),
-          child: CustomIcon(
-            onTap: _onLeadingIconTap,
-            assetName: AppAssetPaths.gridViewIcon,
-          )),
+      leading: appBarLeadingWidget(),
       title: const Text(
         "My Tasks",
         style: TextStyle(
@@ -76,9 +106,32 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
+  Widget appBarLeadingWidget() {
+    return BlocBuilder<TasksCubit, TasksState>(
+      buildWhen: (previous, current) => current is ConvertUiState,
+      builder: (context, state) {
+        return Padding(
+            padding: const EdgeInsetsDirectional.only(start: 24, end: 35),
+            child: CustomIcon(
+              onTap: _onLeadingIconTap,
+              assetName:
+                  isGrid ? AppAssetPaths.menuIcon : AppAssetPaths.gridViewIcon,
+            ));
+      },
+    );
+  }
+
 ///////////////////////////////////////////////////////////
 //////////////////// Helper methods ///////////////////////
 ///////////////////////////////////////////////////////////
 
-  void _onLeadingIconTap() {}
+  TasksCubit get currentCubit => context.read<TasksCubit>();
+
+  void _onLeadingIconTap() {
+    currentCubit.changeUi();
+  }
+
+  void _getAllTasks() {
+    currentCubit.getAllTasks();
+  }
 }

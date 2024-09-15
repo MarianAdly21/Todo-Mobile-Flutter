@@ -12,6 +12,7 @@ abstract final class AppAssetPaths {
   static const searchIcon = "assets/icons/search_icon.svg";
   static const checkBoxIcon = "assets/icons/check-square.svg";
   static const trashIcon = "assets/icons/trash-2.svg";
+  static const menuIcon = "assets/icons/menu.svg";
 
   /// Images
 

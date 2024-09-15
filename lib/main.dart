@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:todo_mobile/features/home/models/note_model.dart';
+import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
+import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/features/home/screens/home_screen.dart';
+import 'package:todo_mobile/simple_bloc_observer.dart';
 
 void main() async {
   await Hive.initFlutter();
-  Hive.registerAdapter(NoteModelAdapter());
-  await Hive.openBox<NoteModel>("noteBox");
+  Bloc.observer = SimpleBlocObserver();
+  Hive.registerAdapter(TaskModelAdapter());
+  await Hive.openBox<TaskModel>("noteBox");
 
   runApp(const TodoApp());
 }
@@ -16,9 +20,12 @@ class TodoApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+    return BlocProvider(
+      create: (context) => TasksCubit(),
+      child: const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: HomeScreen(),
+      ),
     );
   }
 }

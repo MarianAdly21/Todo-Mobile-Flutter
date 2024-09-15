@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 import 'package:todo_mobile/res/app_colors.dart';
@@ -6,7 +7,9 @@ import 'package:todo_mobile/res/app_colors.dart';
 class TaskItem extends StatelessWidget {
   const TaskItem({
     super.key,
+    required this.task,
   });
+  final TaskModel task;
 
   @override
   Widget build(BuildContext context) {
@@ -22,25 +25,26 @@ class TaskItem extends StatelessWidget {
           width: 24,
           height: 28,
         ),
-        title: const Padding(
-          padding: EdgeInsetsDirectional.only(
+        title: Padding(
+          padding: const EdgeInsetsDirectional.only(
             start: 14,
             top: 12,
           ),
           child: Text(
-            "Pay Emma",
-            style: TextStyle(
+            task.title,
+            style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w700,
               color: Colors.white,
             ),
           ),
         ),
-        subtitle: const Padding(
-          padding: EdgeInsetsDirectional.only(start: 20, top: 10, bottom: 18),
+        subtitle: Padding(
+          padding:
+              const EdgeInsetsDirectional.only(start: 20, top: 10, bottom: 18),
           child: Text(
-            "20 dollars for manga ",
-            style: TextStyle(
+            task.content,
+            style: const TextStyle(
               fontSize: 16,
               fontWeight: FontWeight.w300,
               color: Colors.white,
