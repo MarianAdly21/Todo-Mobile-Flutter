@@ -7,11 +7,6 @@ class TasksCubit extends Cubit<TasksState> {
   TasksCubit() : super(InitialState());
   bool isGrid = false;
 
-  // void changeUi() {
-  //   isGrid = !isGrid;
-  //   emit(ConvertUiState(isGrid: isGrid));
-
-  // }
   void changeUi() {
     isGrid = !isGrid;
     emit(ConvertUiState(isGrid: isGrid));

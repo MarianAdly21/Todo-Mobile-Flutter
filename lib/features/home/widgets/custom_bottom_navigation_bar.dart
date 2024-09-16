@@ -62,7 +62,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
           child: FloatingActionButton(
             backgroundColor: AppColors.colorTaskItem,
             shape: const CircleBorder(),
-            onPressed: () {},
+            onPressed: () {
+              showModalBottomSheet(
+                  context: context,
+                  builder: (context) {
+                    return Container();
+                  });
+            },
             child: const Icon(
               Icons.add,
               color: Colors.white,
