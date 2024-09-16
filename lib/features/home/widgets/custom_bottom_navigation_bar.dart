@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_mobile/features/home/widgets/add_task_form.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
@@ -64,9 +65,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
             shape: const CircleBorder(),
             onPressed: () {
               showModalBottomSheet(
+                  isScrollControlled: true,
                   context: context,
                   builder: (context) {
-                    return Container();
+                    return _addTaskBottomSheet(context);
                   });
             },
             child: const Icon(
@@ -76,6 +78,24 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+
+///////////////////////////////////////////////////////////
+//////////////////// Widget methods ///////////////////////
+///////////////////////////////////////////////////////////
+
+  Widget _addTaskBottomSheet(BuildContext context) {
+    return Padding(
+      padding: EdgeInsetsDirectional.only(
+        start: 24,
+        end: 24,
+        top: 28,
+        bottom: MediaQuery.of(context).viewInsets.bottom,
+      ),
+      child: const SingleChildScrollView(
+        child: AddTaskForm(),
+      ),
     );
   }
 }
