@@ -8,20 +8,21 @@ class CustomIcon extends StatelessWidget {
     this.width,
     this.height,
     required this.assetName,
+    this.color,
   });
   final void Function() onTap;
   final double? width, height;
   final String assetName;
-
+  final Color? color;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: SvgPicture.asset(
-        assetName,
-        height: height,
-        width: width,
-      ),
+      child: SvgPicture.asset(assetName,
+          height: height,
+          width: width,
+          colorFilter:
+              ColorFilter.mode(color ?? Colors.white, BlendMode.srcIn)),
     );
   }
 }

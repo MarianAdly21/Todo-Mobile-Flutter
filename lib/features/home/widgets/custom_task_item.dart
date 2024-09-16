@@ -1,15 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
 import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
-class TaskItem extends StatelessWidget {
+class TaskItem extends StatefulWidget {
   const TaskItem({
     super.key,
     required this.task,
   });
   final TaskModel task;
+
+  @override
+  State<TaskItem> createState() => _TaskItemState();
+}
+
+class _TaskItemState extends State<TaskItem> {
+  bool isdone = false;
 
   @override
   Widget build(BuildContext context) {
@@ -20,10 +29,14 @@ class TaskItem extends StatelessWidget {
       ),
       child: ListTile(
         leading: CustomIcon(
-          onTap: () {},
+          onTap: () {
+            isdone = !isdone;
+            setState(() {});
+          },
           assetName: AppAssetPaths.checkBoxIcon,
           width: 24,
           height: 28,
+          color: isdone ? const Color(0xff12629D) : null,
         ),
         title: Padding(
           padding: const EdgeInsetsDirectional.only(
@@ -31,7 +44,7 @@ class TaskItem extends StatelessWidget {
             top: 12,
           ),
           child: Text(
-            task.title,
+            widget.task.title,
             style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.w700,
@@ -43,7 +56,7 @@ class TaskItem extends StatelessWidget {
           padding:
               const EdgeInsetsDirectional.only(start: 20, top: 10, bottom: 18),
           child: Text(
-            task.content,
+            widget.task.content,
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.w400,
@@ -52,7 +65,10 @@ class TaskItem extends StatelessWidget {
           ),
         ),
         trailing: CustomIcon(
-          onTap: () {},
+          onTap: () {
+            widget.task.delete();
+            BlocProvider.of<TasksCubit>(context).getAllTasks();
+          },
           assetName: AppAssetPaths.trashIcon,
           width: 24,
           height: 27,
