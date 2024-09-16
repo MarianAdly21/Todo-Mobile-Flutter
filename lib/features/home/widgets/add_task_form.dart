@@ -1,20 +1,49 @@
 import 'package:flutter/material.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
-class AddTaskForm extends StatelessWidget {
+class AddTaskForm extends StatefulWidget {
   const AddTaskForm({super.key});
 
   @override
+  State<AddTaskForm> createState() => _AddTaskFormState();
+}
+
+class _AddTaskFormState extends State<AddTaskForm> {
+  GlobalKey<FormState> formKey = GlobalKey();
+  AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
+  String? title, content;
+  @override
   Widget build(BuildContext context) {
     return Form(
+      key: formKey,
+      autovalidateMode: autovalidateMode,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _customText(title: 'Todo Title'),
-          _customTextFormField(hintText: "Todo title....."),
+          _customTextFormField(
+            hintText: "Todo title.....",
+            onSaved: (value) {
+              title = value;
+            },
+          ),
           _customText(title: 'Write anything in your mind'),
-          _customTextFormField(hintText: "Write anything in your mind "),
-          _customButton(context),
+          _customTextFormField(
+            hintText: "Write anything in your mind",
+            onSaved: (value) {
+              content = value;
+            },
+          ),
+          _customButton(
+            onTap: () {
+              if (formKey.currentState!.validate()) {
+                formKey.currentState!.save();
+              } else {
+                autovalidateMode = AutovalidateMode.always;
+                setState(() {});
+              }
+            },
+          ),
           const SizedBox(
             height: 31,
           )
@@ -27,29 +56,34 @@ class AddTaskForm extends StatelessWidget {
 //////////////////// Widget methods ///////////////////////
 ///////////////////////////////////////////////////////////
 
-  Widget _customButton(BuildContext context) {
-    return Container(
-      height: 57,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        color: AppColors.colorButtom,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: const Center(
-        child: Text(
-          "Save",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 30,
-            fontWeight: FontWeight.w400,
+  Widget _customButton({void Function()? onTap}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 57,
+        width: MediaQuery.of(context).size.width,
+        decoration: BoxDecoration(
+          color: AppColors.colorButtom,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: const Center(
+          child: Text(
+            "Save",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 30,
+              fontWeight: FontWeight.w400,
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _customTextFormField(
-      {required String hintText, void Function(String?)? onSaved}) {
+  Widget _customTextFormField({
+    required String hintText,
+    void Function(String?)? onSaved,
+  }) {
     return Padding(
       padding: const EdgeInsetsDirectional.only(
         top: 10,
@@ -57,6 +91,13 @@ class AddTaskForm extends StatelessWidget {
       ),
       child: TextFormField(
         onSaved: onSaved,
+        validator: (value) {
+          if (value?.isEmpty ?? true) {
+            return "Field is Required";
+          } else {
+            return null;
+          }
+        },
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: const TextStyle(
