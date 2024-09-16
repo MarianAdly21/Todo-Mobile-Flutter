@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_mobile/features/home/cubits/add_tasks_cubit.dart/add_task_state.dart';
+import 'package:todo_mobile/features/home/cubits/add_tasks_cubit.dart/add_tasks_cubit.dart';
+import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
 import 'package:todo_mobile/features/home/widgets/add_task_form.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
@@ -86,15 +90,30 @@ class CustomBottomNavigationBar extends StatelessWidget {
 ///////////////////////////////////////////////////////////
 
   Widget _addTaskBottomSheet(BuildContext context) {
-    return Padding(
-      padding: EdgeInsetsDirectional.only(
-        start: 24,
-        end: 24,
-        top: 28,
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
-      child: const SingleChildScrollView(
-        child: AddTaskForm(),
+    return BlocProvider(
+      create: (context) => AddTasksCubit(),
+      child: BlocConsumer<AddTasksCubit, AddTasksState>(
+        listener: (context, state) {
+          if (state is AddTaskFailuerState) {
+            print("Erorr.............${state.erorrMessage}");
+          } else if (state is AddTasksSuccessState) {
+            BlocProvider.of<TasksCubit>(context).getAllTasks();
+            Navigator.pop(context);
+          }
+        },
+        builder: (context, state) {
+          return Padding(
+            padding: EdgeInsetsDirectional.only(
+              start: 24,
+              end: 24,
+              top: 28,
+              bottom: MediaQuery.of(context).viewInsets.bottom,
+            ),
+            child: const SingleChildScrollView(
+              child: AddTaskForm(),
+            ),
+          );
+        },
       ),
     );
   }

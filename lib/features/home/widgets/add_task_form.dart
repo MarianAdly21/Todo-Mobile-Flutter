@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_mobile/features/home/cubits/add_tasks_cubit.dart/add_tasks_cubit.dart';
+import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
 class AddTaskForm extends StatefulWidget {
@@ -38,6 +41,11 @@ class _AddTaskFormState extends State<AddTaskForm> {
             onTap: () {
               if (formKey.currentState!.validate()) {
                 formKey.currentState!.save();
+                TaskModel taskModel = TaskModel(
+                  title: title!,
+                  content: content!,
+                );
+                BlocProvider.of<AddTasksCubit>(context).addTasks(taskModel);
               } else {
                 autovalidateMode = AutovalidateMode.always;
                 setState(() {});
