@@ -12,9 +12,7 @@ class TaskItemGrid extends StatelessWidget {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       sliver: SliverGrid.builder(
-        //padding: const EdgeInsets.symmetric(horizontal: 20),
-        //   physics: const NeverScrollableScrollPhysics(),
-        //  shrinkWrap: true,
+       
         itemCount: tasks.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
