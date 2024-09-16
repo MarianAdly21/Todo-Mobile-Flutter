@@ -10,7 +10,7 @@ void main() async {
   await Hive.initFlutter();
   Bloc.observer = SimpleBlocObserver();
   Hive.registerAdapter(TaskModelAdapter());
-  await Hive.openBox<TaskModel>("noteBox");
+  await Hive.openBox<TaskModel>("taskBox");
 
   runApp(const TodoApp());
 }

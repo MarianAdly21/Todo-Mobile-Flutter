@@ -45,8 +45,8 @@ class TaskItem extends StatelessWidget {
           child: Text(
             task.content,
             style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.w300,
+              fontSize: 18,
+              fontWeight: FontWeight.w400,
               color: Colors.white,
             ),
           ),

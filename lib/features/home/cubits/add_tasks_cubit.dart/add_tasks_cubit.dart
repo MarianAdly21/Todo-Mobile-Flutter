@@ -8,7 +8,7 @@ class AddTasksCubit extends Cubit<AddTasksState> {
 
   addTasks(TaskModel task) async {
     try {
-      var taskBox = Hive.box<TaskModel>('noteBox');
+      var taskBox = Hive.box<TaskModel>('taskBox');
       await taskBox.add(task);
       emit(AddTasksSuccessState());
     } catch (e) {

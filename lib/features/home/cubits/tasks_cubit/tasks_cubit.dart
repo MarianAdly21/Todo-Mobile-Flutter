@@ -6,6 +6,7 @@ import 'package:todo_mobile/features/home/models/task_model.dart';
 class TasksCubit extends Cubit<TasksState> {
   TasksCubit() : super(InitialState());
   bool isGrid = false;
+  List<TaskModel> tasks=[];
 
   void changeUi() {
     isGrid = !isGrid;
@@ -14,9 +15,9 @@ class TasksCubit extends Cubit<TasksState> {
 
   getAllTasks() {
     try {
-      var box = Hive.box<TaskModel>('noteBox');
-
-      emit(LoadedTasksSuccessState(tasks: TaskModel.demo));
+      var taskBox = Hive.box<TaskModel>('taskBox');
+        tasks=taskBox.values.toList();
+      emit(LoadedTasksSuccessState(tasks:tasks ));
     } catch (e) {
       emit(FailuerState(e.toString()));
     }
