@@ -98,7 +98,6 @@ class CustomBottomNavigationBar extends StatelessWidget {
           if (state is AddTaskFailuerState) {
             debugPrint("Erorr.............${state.erorrMessage}");
           } else if (state is AddTasksSuccessState) {
-            // BlocProvider.of<TasksCubit>(context).getAllTasks();
             currentTasksCubit(context).getAllTasks();
             Navigator.pop(context);
           }

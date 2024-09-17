@@ -15,6 +15,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
   GlobalKey<FormState> formKey = GlobalKey();
   AutovalidateMode autovalidateMode = AutovalidateMode.disabled;
   String? title, content;
+  bool isDone = false;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -44,7 +45,9 @@ class _AddTaskFormState extends State<AddTaskForm> {
                 TaskModel taskModel = TaskModel(
                   title: title!,
                   content: content!,
+                  isDone: isDone,
                 );
+
                 _addTask(taskModel);
               } else {
                 autovalidateMode = AutovalidateMode.always;

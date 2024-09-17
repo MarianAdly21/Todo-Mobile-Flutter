@@ -6,6 +6,8 @@ import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/features/home/screens/home_screen.dart';
 import 'package:todo_mobile/simple_bloc_observer.dart';
 
+
+
 void main() async {
   await Hive.initFlutter();
   Bloc.observer = SimpleBlocObserver();
@@ -14,6 +16,8 @@ void main() async {
 
   runApp(const TodoApp());
 }
+
+
 
 class TodoApp extends StatelessWidget {
   const TodoApp({super.key});

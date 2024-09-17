@@ -13,6 +13,7 @@ class TaskItemList extends StatelessWidget {
         (context, index) => Padding(
           padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 12),
           child: TaskItem(
+            index: index,
             task: task[index],
           ),
         ),

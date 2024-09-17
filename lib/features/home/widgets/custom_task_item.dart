@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
 import 'package:todo_mobile/features/home/models/task_model.dart';
+import 'package:todo_mobile/features/home/screens/home_screen.dart';
+import 'package:todo_mobile/features/home/widgets/custom_check_box.dart';
 import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 import 'package:todo_mobile/res/app_colors.dart';
@@ -10,15 +10,16 @@ class TaskItem extends StatefulWidget {
   const TaskItem({
     super.key,
     required this.task,
+    required this.index,
   });
   final TaskModel task;
-
+  final int index;
   @override
   State<TaskItem> createState() => _TaskItemState();
 }
 
 class _TaskItemState extends State<TaskItem> {
-  bool isdone = false;
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,16 +29,7 @@ class _TaskItemState extends State<TaskItem> {
         borderRadius: BorderRadius.circular(20),
       ),
       child: ListTile(
-        leading: CustomIcon(
-          onTap: () {
-            isdone = !isdone;
-            setState(() {});
-          },
-          assetName: AppAssetPaths.checkBoxIcon,
-          width: 24,
-          height: 28,
-          color: isdone ? const Color(0xff12629D) : null,
-        ),
+        leading: CustomCheckBox(task: widget.task, index: widget.index),
         title: Padding(
           padding: const EdgeInsetsDirectional.only(
             start: 14,
@@ -67,7 +59,7 @@ class _TaskItemState extends State<TaskItem> {
         trailing: CustomIcon(
           onTap: () {
             widget.task.delete();
-            BlocProvider.of<TasksCubit>(context).getAllTasks();
+            currentTasksCubit(context).getAllTasks();
           },
           assetName: AppAssetPaths.trashIcon,
           width: 24,

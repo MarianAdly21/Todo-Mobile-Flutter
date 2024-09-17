@@ -7,8 +7,12 @@ class TaskModel extends HiveObject {
   final String title;
   @HiveField(1)
   final String content;
+  @HiveField(2)
+  bool isDone=false ;
 
-  TaskModel({required this.title, required this.content});
-
- 
+  TaskModel({
+    required this.isDone,
+    required this.title,
+    required this.content,
+  });
 }

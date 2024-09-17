@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:todo_mobile/features/home/models/task_model.dart';
+import 'package:todo_mobile/features/home/screens/home_screen.dart';
+import 'package:todo_mobile/features/home/widgets/custom_check_box.dart';
 import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 import 'package:todo_mobile/res/app_colors.dart';
@@ -7,6 +10,7 @@ import 'package:todo_mobile/res/app_colors.dart';
 class TaskItemGrid extends StatelessWidget {
   const TaskItemGrid({super.key, required this.tasks});
   final List<TaskModel> tasks;
+
   @override
   Widget build(BuildContext context) {
     return SliverPadding(
@@ -20,7 +24,7 @@ class TaskItemGrid extends StatelessWidget {
           childAspectRatio: 0.94,
         ),
         itemBuilder: (context, index) {
-          return _taskContant(task: tasks[index]);
+          return _taskContant(task: tasks[index], context, index: index);
         },
       ),
     );
@@ -30,9 +34,9 @@ class TaskItemGrid extends StatelessWidget {
 //////////////////// Widget methods ///////////////////////
 ///////////////////////////////////////////////////////////
 
-  Widget _taskContant({required TaskModel task}) {
+  Widget _taskContant(BuildContext context,
+      {required int index, required TaskModel task}) {
     return Container(
-     
       decoration: BoxDecoration(
         color: AppColors.colorTaskItem,
         borderRadius: BorderRadius.circular(20),
@@ -71,18 +75,23 @@ class TaskItemGrid extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              CustomIcon(
-                onTap: () {
-                  
-                },
-                assetName: AppAssetPaths.checkBoxIcon,
-                width: 24,
-                height: 28,
+              CustomCheckBox(
+                task: task,
+                index: index,
               ),
+              // CustomIcon(
+              //   onTap: () {},
+              //   assetName: AppAssetPaths.checkBoxIcon,
+              //   width: 24,
+              //   height: 28,
+              // ),
               Padding(
                 padding: const EdgeInsetsDirectional.only(start: 10, end: 8),
                 child: CustomIcon(
-                  onTap: () {},
+                  onTap: () {
+                    task.delete();
+                    currentTasksCubit(context).getAllTasks();
+                  },
                   assetName: AppAssetPaths.trashIcon,
                   width: 24,
                   height: 27,
