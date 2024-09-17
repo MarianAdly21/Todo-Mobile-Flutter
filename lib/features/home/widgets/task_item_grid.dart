@@ -12,12 +12,12 @@ class TaskItemGrid extends StatelessWidget {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 20),
       sliver: SliverGrid.builder(
-       
         itemCount: tasks.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
           crossAxisSpacing: 22,
           mainAxisSpacing: 21,
+          childAspectRatio: 0.94,
         ),
         itemBuilder: (context, index) {
           return _taskContant(task: tasks[index]);
@@ -32,8 +32,7 @@ class TaskItemGrid extends StatelessWidget {
 
   Widget _taskContant({required TaskModel task}) {
     return Container(
-      width: 164,
-      // height: 174,
+     
       decoration: BoxDecoration(
         color: AppColors.colorTaskItem,
         borderRadius: BorderRadius.circular(20),
@@ -53,23 +52,29 @@ class TaskItemGrid extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsetsDirectional.only(start: 17),
-            child: Text(
-              task.content,
-              style: const TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w300,
-                color: Colors.white,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsetsDirectional.only(start: 17, end: 17),
+              child: Text(
+                task.content,
+                maxLines: 2,
+                style: const TextStyle(
+                  overflow: TextOverflow.ellipsis,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w300,
+                  color: Colors.white,
+                ),
               ),
             ),
           ),
-          const Spacer(flex: 1),
+          const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               CustomIcon(
-                onTap: () {},
+                onTap: () {
+                  
+                },
                 assetName: AppAssetPaths.checkBoxIcon,
                 width: 24,
                 height: 28,

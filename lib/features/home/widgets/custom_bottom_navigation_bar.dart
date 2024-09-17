@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_mobile/features/home/cubits/add_tasks_cubit.dart/add_task_state.dart';
 import 'package:todo_mobile/features/home/cubits/add_tasks_cubit.dart/add_tasks_cubit.dart';
 import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
+import 'package:todo_mobile/features/home/screens/home_screen.dart';
 import 'package:todo_mobile/features/home/widgets/add_task_form.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
@@ -95,9 +96,10 @@ class CustomBottomNavigationBar extends StatelessWidget {
       child: BlocConsumer<AddTasksCubit, AddTasksState>(
         listener: (context, state) {
           if (state is AddTaskFailuerState) {
-            print("Erorr.............${state.erorrMessage}");
+            debugPrint("Erorr.............${state.erorrMessage}");
           } else if (state is AddTasksSuccessState) {
-            BlocProvider.of<TasksCubit>(context).getAllTasks();
+            // BlocProvider.of<TasksCubit>(context).getAllTasks();
+            currentTasksCubit(context).getAllTasks();
             Navigator.pop(context);
           }
         },

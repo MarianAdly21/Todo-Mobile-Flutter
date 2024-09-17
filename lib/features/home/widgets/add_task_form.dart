@@ -25,7 +25,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
         children: [
           _customText(title: 'Todo Title'),
           _customTextFormField(
-            hintText: "Todo title.....",
+            hintText: "Todo title....",
             onSaved: (value) {
               title = value;
             },
@@ -45,7 +45,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
                   title: title!,
                   content: content!,
                 );
-                BlocProvider.of<AddTasksCubit>(context).addTasks(taskModel);
+                _addTask(taskModel);
               } else {
                 autovalidateMode = AutovalidateMode.always;
                 setState(() {});
@@ -139,5 +139,15 @@ class _AddTaskFormState extends State<AddTaskForm> {
         color: color ?? AppColors.colorTextField,
       ),
     );
+  }
+
+///////////////////////////////////////////////////////////
+//////////////////// Helper methods ///////////////////////
+///////////////////////////////////////////////////////////
+  AddTasksCubit get currentAddTasksCubit =>
+      BlocProvider.of<AddTasksCubit>(context);
+
+  void _addTask(TaskModel taskModel) {
+    currentAddTasksCubit.addTasks(taskModel);
   }
 }

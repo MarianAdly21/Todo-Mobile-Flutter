@@ -8,6 +8,7 @@ import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
 import 'package:todo_mobile/features/home/widgets/task_item_grid.dart';
 import 'package:todo_mobile/features/home/widgets/task_item_list.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
+import 'package:todo_mobile/res/app_colors.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -100,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: CustomIcon(
             onTap: () {},
             assetName: AppAssetPaths.searchIcon,
+            color: AppColors.colorSearchIcon,
           ),
         ),
       ],
@@ -113,6 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return Padding(
             padding: const EdgeInsetsDirectional.only(start: 24, end: 35),
             child: CustomIcon(
+              color: AppColors.gridAndListIcon,
               onTap: _onLeadingIconTap,
               assetName:
                   isGrid ? AppAssetPaths.menuIcon : AppAssetPaths.gridViewIcon,
@@ -125,13 +128,14 @@ class _HomeScreenState extends State<HomeScreen> {
 //////////////////// Helper methods ///////////////////////
 ///////////////////////////////////////////////////////////
 
-  TasksCubit get currentCubit => context.read<TasksCubit>();
 
   void _onLeadingIconTap() {
-    currentCubit.changeUi();
+    currentTasksCubit(context).changeUi();
   }
 
   void _getAllTasks() {
-    currentCubit.getAllTasks();
+    currentTasksCubit(context).getAllTasks();
   }
 }
+TasksCubit  currentTasksCubit(BuildContext context) => context.read<TasksCubit>();
+

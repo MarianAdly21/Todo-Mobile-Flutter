@@ -10,10 +10,5 @@ class TaskModel extends HiveObject {
 
   TaskModel({required this.title, required this.content});
 
-  // static List<TaskModel> demo = [
-  //   TaskModel(title: "Marudk", content: "flutterManuhnj"),
-  //   TaskModel(title: "Marudk", content: "flutterManuhnj"),
-  //   TaskModel(title: "Marudk", content: "flutterManuhnj"),
-  //   TaskModel(title: "Marudk", content: "flutterManuhnj"),
-  // ];
+ 
 }

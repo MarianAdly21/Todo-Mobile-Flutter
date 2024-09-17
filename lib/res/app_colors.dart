@@ -16,6 +16,7 @@ abstract final class AppColors {
   static const _coralRed = Color(0xffFF4444);
   static const _alto = Color(0xffD9D9D9);
   static const _tamarillo = Color(0xff9D1212);
+  static const _altoApprox = Color(0xffD1CDCD);
 
   /// Splash
   static const splashBackground = _alizarinCrimson;
@@ -23,6 +24,9 @@ abstract final class AppColors {
   /// Home
   static const gridAndListIcon = _redsolid;
   static const colorTaskItem = _coralRed;
+    static const colorSearchIcon = _altoApprox;
+
+
 
   /// BottomSheet
   static const colorTextField = _alto;
