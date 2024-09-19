@@ -7,6 +7,7 @@ import 'package:todo_mobile/features/home/widgets/custom_bottom_navigation_bar.d
 import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
 import 'package:todo_mobile/features/home/widgets/task_item_grid.dart';
 import 'package:todo_mobile/features/home/widgets/task_item_list.dart';
+import 'package:todo_mobile/features/search/screens/search_screen.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
@@ -100,7 +101,9 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: const EdgeInsetsDirectional.only(start: 14, end: 27),
           child: CustomIcon(
             onTap: () {
-              
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+                return SearchScreen();
+              }));
             },
             assetName: AppAssetPaths.searchIcon,
             color: AppColors.colorSearchIcon,
@@ -130,7 +133,6 @@ class _HomeScreenState extends State<HomeScreen> {
 //////////////////// Helper methods ///////////////////////
 ///////////////////////////////////////////////////////////
 
-
   void _onLeadingIconTap() {
     currentTasksCubit(context).changeUi();
   }
@@ -139,5 +141,6 @@ class _HomeScreenState extends State<HomeScreen> {
     currentTasksCubit(context).getAllTasks();
   }
 }
-TasksCubit  currentTasksCubit(BuildContext context) => context.read<TasksCubit>();
 
+TasksCubit currentTasksCubit(BuildContext context) =>
+    context.read<TasksCubit>();

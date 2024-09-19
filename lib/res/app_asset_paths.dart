@@ -14,6 +14,9 @@ abstract final class AppAssetPaths {
   static const trashIcon = "assets/icons/trash-2.svg";
   static const menuIcon = "assets/icons/menu.svg";
 
+  /// Search
+  static const clearIconSearch = "assets/icons/clearIcon.svg";
+
   /// Images
 
   /// Splash
