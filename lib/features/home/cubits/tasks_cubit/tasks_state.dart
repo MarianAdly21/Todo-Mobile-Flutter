@@ -20,5 +20,9 @@ class ConvertUiState extends TasksState {
   final bool isGrid;
 
   ConvertUiState({required this.isGrid});
+}
 
+class SearchLoadedState extends TasksState {
+  final List<TaskModel> tasksFounded;
+  SearchLoadedState({required this.tasksFounded});
 }
