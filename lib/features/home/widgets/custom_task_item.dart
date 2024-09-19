@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:todo_mobile/features/home/models/task_model.dart';
-import 'package:todo_mobile/features/home/screens/home_screen.dart';
 import 'package:todo_mobile/features/home/widgets/custom_check_box.dart';
 import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
+import 'package:todo_mobile/features/home/widgets/task_item_grid.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
@@ -19,8 +19,6 @@ class TaskItem extends StatefulWidget {
 }
 
 class _TaskItemState extends State<TaskItem> {
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -58,8 +56,7 @@ class _TaskItemState extends State<TaskItem> {
         ),
         trailing: CustomIcon(
           onTap: () {
-            widget.task.delete();
-            currentTasksCubit(context).getAllTasks();
+            deleteTask(widget.task, context);
           },
           assetName: AppAssetPaths.trashIcon,
           width: 24,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
 import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/features/home/screens/home_screen.dart';
 import 'package:todo_mobile/features/home/widgets/custom_check_box.dart';
@@ -89,8 +88,7 @@ class TaskItemGrid extends StatelessWidget {
                 padding: const EdgeInsetsDirectional.only(start: 10, end: 8),
                 child: CustomIcon(
                   onTap: () {
-                    task.delete();
-                    currentTasksCubit(context).getAllTasks();
+                    deleteTask(task, context);
                   },
                   assetName: AppAssetPaths.trashIcon,
                   width: 24,
@@ -104,4 +102,11 @@ class TaskItemGrid extends StatelessWidget {
       ),
     );
   }
+
+
+}
+
+void deleteTask(TaskModel task, BuildContext context) {
+  task.delete();
+  currentTasksCubit(context).getAllTasks();
 }

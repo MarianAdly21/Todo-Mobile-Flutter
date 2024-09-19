@@ -99,7 +99,9 @@ class _HomeScreenState extends State<HomeScreen> {
         Padding(
           padding: const EdgeInsetsDirectional.only(start: 14, end: 27),
           child: CustomIcon(
-            onTap: () {},
+            onTap: () {
+              
+            },
             assetName: AppAssetPaths.searchIcon,
             color: AppColors.colorSearchIcon,
           ),
