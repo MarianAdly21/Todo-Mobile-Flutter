@@ -18,11 +18,14 @@ class TasksCubit extends Cubit<TasksState> {
   getTaskSearch(String titleSearch) {
     List<TaskModel> searchResultList = [];
     tasks = taskBox.values.toList();
-    for (int i = 0; i < tasks.length; i++) {
-      if (tasks[i].title.contains(titleSearch)) {
-        searchResultList.add(tasks[i]);
+    if (titleSearch.isNotEmpty) {
+      for (int i = 0; i < tasks.length; i++) {
+        if (tasks[i].title.contains(titleSearch)) {
+          searchResultList.add(tasks[i]);
+        }
       }
     }
+
     return emit(SearchLoadedState(tasksFounded: searchResultList));
   }
 

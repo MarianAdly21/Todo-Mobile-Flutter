@@ -13,18 +13,35 @@ class CustomCheckBox extends StatefulWidget {
 class _CustomCheckBoxState extends State<CustomCheckBox> {
   @override
   Widget build(BuildContext context) {
-    return Transform.scale(
-      scale: 1.3,
-      child: Checkbox(
-          activeColor: Colors.blue,
-          side: MaterialStateBorderSide.resolveWith(
-            (states) => const BorderSide(width: 1, color: Colors.white),
-          ),
-          value: widget.task.isDone,
-          onChanged: (value) async {
-            await _updateTask(value);
-          }),
-    );
+    return widget.task.isDone
+        ? IconButton(
+            onPressed: () async {
+              await _updateTask(!widget.task.isDone);
+            },
+            icon: const Icon(
+              Icons.check_box_outlined,
+              size: 30,
+              
+            ))
+        : IconButton(
+            onPressed: () async {
+              await _updateTask(!widget.task.isDone);
+            },
+            icon: const Icon(
+              Icons.check_box_outline_blank,
+              size: 30,
+            ));
+    // Transform.scale(
+    //   scale: 1.3,
+    //   child: Checkbox(
+    //       side: MaterialStateBorderSide.resolveWith(
+    //         (states) => const BorderSide(width: 1, color: Colors.white),
+    //       ),
+    //       value: widget.task.isDone,
+    //       onChanged: (value) async {
+    //         await _updateTask(value);
+    //       }),
+    // );
   }
 
 ///////////////////////////////////////////////////////////
