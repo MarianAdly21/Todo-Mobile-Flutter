@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
 import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_state.dart';
-import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/features/home/widgets/custom_task_item.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
@@ -14,7 +13,6 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  List<TaskModel> tasks = [];
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -66,22 +64,14 @@ class _SearchScreenState extends State<SearchScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
       child: TextFormField(
         onChanged: (value) {
-          BlocProvider.of<TasksCubit>(context).getTaskSearch(value);
+          _getTaskSearch(value);
         },
         controller: _controller,
         decoration: InputDecoration(
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(2),
-            borderSide: const BorderSide(color: AppColors.colorTaskItem),
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(2),
-            borderSide: const BorderSide(color: AppColors.colorTextField),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(2),
-            borderSide: const BorderSide(color: AppColors.colorTextField),
-          ),
+          focusedBorder:
+              _buildBorderTextFormField(color: AppColors.colorTaskItem),
+          border: _buildBorderTextFormField(),
+          enabledBorder: _buildBorderTextFormField(),
           hintText: "Saerch",
           hintStyle: const TextStyle(
             fontSize: 15,
@@ -96,11 +86,26 @@ class _SearchScreenState extends State<SearchScreen> {
             ),
             onPressed: () {
               _controller.clear();
+              _getTaskSearch(_controller.text);
               setState(() {});
             },
           ),
         ),
       ),
     );
+  }
+
+///////////////////////////////////////////////////////////
+//////////////////// Helper methods ///////////////////////
+///////////////////////////////////////////////////////////
+  OutlineInputBorder _buildBorderTextFormField({Color? color}) {
+    return OutlineInputBorder(
+      borderRadius: BorderRadius.circular(2),
+      borderSide: BorderSide(color: color ?? AppColors.colorTextField),
+    );
+  }
+
+  void _getTaskSearch(value) {
+    BlocProvider.of<TasksCubit>(context).getTaskSearch(value);
   }
 }

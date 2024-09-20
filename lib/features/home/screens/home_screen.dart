@@ -65,6 +65,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
         BlocBuilder<TasksCubit, TasksState>(
+          buildWhen: (previous, current) => current is LoadedTasksSuccessState||
+              current is ConvertUiState,
           builder: (context, state) {
             if (state is LoadedTasksSuccessState) {
               tasks = state.tasks;
@@ -102,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: CustomIcon(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return SearchScreen();
+                return const SearchScreen();
               }));
             },
             assetName: AppAssetPaths.searchIcon,

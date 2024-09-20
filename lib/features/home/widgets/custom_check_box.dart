@@ -21,7 +21,6 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
             icon: const Icon(
               Icons.check_box_outlined,
               size: 30,
-              
             ))
         : IconButton(
             onPressed: () async {
@@ -49,11 +48,11 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
 ///////////////////////////////////////////////////////////
 
   Future<void> _updateTask(bool? value) async {
-    print("Befor Update ${widget.task.isDone}");
+    debugPrint("Befor Update ${widget.task.isDone}");
     widget.task.isDone = value!;
     setState(() {});
     await Hive.box<TaskModel>('taskBox').putAt(widget.index, widget.task);
-    print(widget.task.isDone);
-    print("After Update ${widget.task.isDone}");
+    debugPrint("${widget.task.isDone}");
+    debugPrint("After Update ${widget.task.isDone}");
   }
 }
