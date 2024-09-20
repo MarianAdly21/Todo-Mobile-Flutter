@@ -15,6 +15,7 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   List<TaskModel> tasks = [];
+  final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,6 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
         onChanged: (value) {
           BlocProvider.of<TasksCubit>(context).getTaskSearch(value);
         },
+        controller: _controller,
         decoration: InputDecoration(
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(2),
@@ -92,7 +94,10 @@ class _SearchScreenState extends State<SearchScreen> {
               Icons.cancel_outlined,
               color: AppColors.colorSearchIcon,
             ),
-            onPressed: () {},
+            onPressed: () {
+              _controller.clear();
+              setState(() {});
+            },
           ),
         ),
       ),
