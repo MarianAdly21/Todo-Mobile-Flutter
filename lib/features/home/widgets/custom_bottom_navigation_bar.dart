@@ -68,13 +68,16 @@ class CustomBottomNavigationBar extends StatelessWidget {
           child: FloatingActionButton(
             backgroundColor: AppColors.colorTaskItem,
             shape: const CircleBorder(),
-            onPressed: () {
-              showModalBottomSheet(
+            onPressed: () async {
+              final addDone = await showModalBottomSheet(
                   isScrollControlled: true,
                   context: context,
                   builder: (context) {
                     return _addTaskBottomSheet(context);
                   });
+              if (addDone != null) {
+                currentTasksCubit(context).getAllTasks();
+              }
             },
             child: const Icon(
               Icons.add,
@@ -98,8 +101,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
           if (state is AddTaskFailuerState) {
             debugPrint("Erorr.............${state.erorrMessage}");
           } else if (state is AddTasksSuccessState) {
-            currentTasksCubit(context).getAllTasks();
-            Navigator.pop(context);
+            Navigator.pop(context, "addTask");
           }
         },
         builder: (context, state) {
