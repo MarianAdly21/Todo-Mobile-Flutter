@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_mobile/features/home/cubits/add_tasks_cubit.dart/add_task_state.dart';
 import 'package:todo_mobile/features/home/cubits/add_tasks_cubit.dart/add_tasks_cubit.dart';
 import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
-import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_state.dart';
 import 'package:todo_mobile/features/home/screens/home_screen.dart';
 import 'package:todo_mobile/features/home/widgets/add_task_form.dart';
 import 'package:todo_mobile/res/app_colors.dart';
@@ -103,6 +102,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             shape: const CircleBorder(),
             onPressed: () async {
               final addDone = await showModalBottomSheet(
+                  backgroundColor: widget.isDark ? Colors.black : Colors.white,
                   isScrollControlled: true,
                   context: context,
                   builder: (context) {
@@ -145,8 +145,10 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
               top: 28,
               bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
-            child: const SingleChildScrollView(
-              child: AddTaskForm(),
+            child: SingleChildScrollView(
+              child: AddTaskForm(
+                isDark: widget.isDark,
+              ),
             ),
           );
         },

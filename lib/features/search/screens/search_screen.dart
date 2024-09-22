@@ -46,10 +46,14 @@ class _SearchScreenState extends State<SearchScreen> {
                   }),
             );
           } else {
-            return const Center(
+            return Center(
               child: Text(
                 "No Tasks",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w800),
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.w800,
+                  color: widget.isDark ? Colors.white : Colors.black,
+                ),
               ),
             );
           }
@@ -64,6 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
       child: TextFormField(
+        cursorColor: widget.isDark ? Colors.white : Colors.black,
         onChanged: (value) {
           _getTaskSearch(value);
         },
