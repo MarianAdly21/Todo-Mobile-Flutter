@@ -5,8 +5,8 @@ import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
 class AddTaskForm extends StatefulWidget {
-  const AddTaskForm({super.key});
-
+  const AddTaskForm({super.key, required this.isDark});
+  final bool isDark;
   @override
   State<AddTaskForm> createState() => _AddTaskFormState();
 }
@@ -77,11 +77,11 @@ class _AddTaskFormState extends State<AddTaskForm> {
           color: AppColors.colorButtom,
           borderRadius: BorderRadius.circular(10),
         ),
-        child: const Center(
+        child: Center(
           child: Text(
             "Save",
             style: TextStyle(
-              color: Colors.white,
+              color: widget.isDark ? Colors.black : Colors.white,
               fontSize: 30,
               fontWeight: FontWeight.w400,
             ),

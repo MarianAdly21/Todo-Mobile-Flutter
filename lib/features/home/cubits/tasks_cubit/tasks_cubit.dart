@@ -10,7 +10,7 @@ class TasksCubit extends Cubit<TasksState> {
   bool isDark = false;
   void darktheme() {
     isDark = !isDark;
-    emit(convertThemeState(isDark: isDark));
+    emit(ConvertThemeState(isDark: isDark));
   }
 
   void changeUi() {

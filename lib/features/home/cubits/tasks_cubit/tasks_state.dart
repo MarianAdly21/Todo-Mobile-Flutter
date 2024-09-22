@@ -27,8 +27,8 @@ class SearchLoadedState extends TasksState {
   SearchLoadedState({required this.tasksFounded});
 }
 
-class convertThemeState extends TasksState {
+class ConvertThemeState extends TasksState {
   final bool isDark;
 
-  convertThemeState({required this.isDark});
+  ConvertThemeState({required this.isDark});
 }

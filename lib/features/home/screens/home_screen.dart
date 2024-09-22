@@ -35,7 +35,7 @@ class _HomeScreenState extends State<HomeScreen> {
         if (state is ConvertUiState) {
           isGrid = state.isGrid;
         }
-        if (state is convertThemeState) {
+        if (state is ConvertThemeState) {
           isDark = state.isDark;
         }
       },
@@ -114,7 +114,9 @@ class _HomeScreenState extends State<HomeScreen> {
           child: CustomIcon(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return  SearchScreen(isDark: isDark,);
+                return SearchScreen(
+                  isDark: isDark,
+                );
               }));
             },
             assetName: AppAssetPaths.searchIcon,
