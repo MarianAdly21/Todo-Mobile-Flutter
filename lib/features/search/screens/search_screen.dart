@@ -68,6 +68,7 @@ class _SearchScreenState extends State<SearchScreen> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
       child: TextFormField(
+        style: TextStyle(color: widget.isDark ? Colors.white : Colors.black),
         cursorColor: widget.isDark ? Colors.white : Colors.black,
         onChanged: (value) {
           _getTaskSearch(value);

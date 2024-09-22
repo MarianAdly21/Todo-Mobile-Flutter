@@ -30,6 +30,9 @@ class _AddTaskFormState extends State<AddTaskForm> {
             onSaved: (value) {
               title = value;
             },
+            onFieldSubmitted: (value) {
+              _addTaskFromBottomSheet();
+            },
           ),
           _customText(title: 'Write anything in your mind'),
           _customTextFormField(
@@ -37,22 +40,13 @@ class _AddTaskFormState extends State<AddTaskForm> {
             onSaved: (value) {
               content = value;
             },
+            onFieldSubmitted: (value) {
+              _addTaskFromBottomSheet();
+            },
           ),
           _customButton(
             onTap: () {
-              if (formKey.currentState!.validate()) {
-                formKey.currentState!.save();
-                TaskModel taskModel = TaskModel(
-                  title: title!,
-                  content: content!,
-                  isDone: isDone,
-                );
-
-                _addTask(taskModel);
-              } else {
-                autovalidateMode = AutovalidateMode.always;
-                setState(() {});
-              }
+              _addTaskFromBottomSheet();
             },
           ),
           const SizedBox(
@@ -94,6 +88,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
   Widget _customTextFormField({
     required String hintText,
     void Function(String?)? onSaved,
+    void Function(String?)? onFieldSubmitted,
   }) {
     return Padding(
       padding: const EdgeInsetsDirectional.only(
@@ -101,6 +96,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
         bottom: 23,
       ),
       child: TextFormField(
+        onFieldSubmitted: onFieldSubmitted,
         onSaved: onSaved,
         validator: (value) {
           if (value?.isEmpty ?? true) {
@@ -152,5 +148,21 @@ class _AddTaskFormState extends State<AddTaskForm> {
 
   void _addTask(TaskModel taskModel) {
     currentAddTasksCubit.addTasks(taskModel);
+  }
+
+  void _addTaskFromBottomSheet() {
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
+      TaskModel taskModel = TaskModel(
+        title: title!,
+        content: content!,
+        isDone: isDone,
+      );
+
+      _addTask(taskModel);
+    } else {
+      autovalidateMode = AutovalidateMode.always;
+      setState(() {});
+    }
   }
 }
