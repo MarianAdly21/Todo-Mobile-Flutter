@@ -20,6 +20,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isGrid = false;
+  bool isDark = false;
   List<TaskModel> tasks = [];
   @override
   void initState() {
@@ -29,17 +30,25 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: const CustomBottomNavigationBar(),
-      appBar: _homeAppBarWidget(),
-      body: BlocListener<TasksCubit, TasksState>(
-        listener: (context, state) {
-          if (state is ConvertUiState) {
-            isGrid = state.isGrid;
-          }
-        },
-        child: _pageContent(),
-      ),
+    return BlocConsumer<TasksCubit, TasksState>(
+      listener: (context, state) {
+        if (state is ConvertUiState) {
+          isGrid = state.isGrid;
+        }
+        if (state is convertThemeState) {
+          isDark = state.isDark;
+        }
+      },
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: isDark ? Colors.black : Colors.white,
+          bottomNavigationBar: CustomBottomNavigationBar(
+            isDark: isDark,
+          ),
+          appBar: _homeAppBarWidget(),
+          body: _pageContent(),
+        );
+      },
     );
   }
 
@@ -50,23 +59,23 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _pageContent() {
     return CustomScrollView(
       slivers: [
-        const SliverToBoxAdapter(
+        SliverToBoxAdapter(
           child: Padding(
-            padding: EdgeInsetsDirectional.only(
+            padding: const EdgeInsetsDirectional.only(
                 start: 20, end: 39, top: 49, bottom: 27),
             child: Text(
               'Whats on your mind?',
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
-                color: Color(0xffF97D7D),
+                color: isDark ? Colors.white : const Color(0xffF97D7D),
               ),
             ),
           ),
         ),
         BlocBuilder<TasksCubit, TasksState>(
-          buildWhen: (previous, current) => current is LoadedTasksSuccessState||
-              current is ConvertUiState,
+          buildWhen: (previous, current) =>
+              current is LoadedTasksSuccessState || current is ConvertUiState,
           builder: (context, state) {
             if (state is LoadedTasksSuccessState) {
               tasks = state.tasks;
@@ -88,12 +97,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   AppBar _homeAppBarWidget() {
     return AppBar(
+      backgroundColor: isDark ? Colors.black : Colors.white,
       leadingWidth: 90,
       leading: appBarLeadingWidget(),
-      title: const Text(
+      title: Text(
         "My Tasks",
         style: TextStyle(
-          color: Color(0xffFF0000),
+          color: isDark ? Colors.white : const Color(0xffFF0000),
           fontSize: 32,
           fontWeight: FontWeight.w700,
         ),
@@ -104,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: CustomIcon(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return const SearchScreen();
+                return  SearchScreen(isDark: isDark,);
               }));
             },
             assetName: AppAssetPaths.searchIcon,
@@ -122,7 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
         return Padding(
             padding: const EdgeInsetsDirectional.only(start: 24, end: 35),
             child: CustomIcon(
-              color: AppColors.gridAndListIcon,
+              color: isDark ? Colors.white : AppColors.gridAndListIcon,
               onTap: _onLeadingIconTap,
               assetName:
                   isGrid ? AppAssetPaths.menuIcon : AppAssetPaths.gridViewIcon,

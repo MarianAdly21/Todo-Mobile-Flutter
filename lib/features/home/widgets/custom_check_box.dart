@@ -21,6 +21,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
             icon: const Icon(
               Icons.check_box_outlined,
               size: 30,
+              color: Colors.white,
             ))
         : IconButton(
             onPressed: () async {
@@ -29,6 +30,7 @@ class _CustomCheckBoxState extends State<CustomCheckBox> {
             icon: const Icon(
               Icons.check_box_outline_blank,
               size: 30,
+              color: Colors.white,
             ));
     // Transform.scale(
     //   scale: 1.3,

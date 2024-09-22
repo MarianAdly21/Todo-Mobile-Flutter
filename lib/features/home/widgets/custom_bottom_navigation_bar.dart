@@ -2,25 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_mobile/features/home/cubits/add_tasks_cubit.dart/add_task_state.dart';
 import 'package:todo_mobile/features/home/cubits/add_tasks_cubit.dart/add_tasks_cubit.dart';
+import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
+import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_state.dart';
 import 'package:todo_mobile/features/home/screens/home_screen.dart';
 import 'package:todo_mobile/features/home/widgets/add_task_form.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
-class CustomBottomNavigationBar extends StatelessWidget {
+class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({
     super.key,
+    required this.isDark,
   });
+  final bool isDark;
 
+  @override
+  State<CustomBottomNavigationBar> createState() =>
+      _CustomBottomNavigationBarState();
+}
+
+class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   @override
   Widget build(BuildContext context) {
     return Stack(
       clipBehavior: Clip.none,
       alignment: AlignmentDirectional.topCenter,
       children: [
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
+            const Padding(
               padding: EdgeInsets.symmetric(horizontal: 80, vertical: 16),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -40,26 +50,50 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 60, vertical: 16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    Icons.nightlight_outlined,
-                    weight: 18,
-                    color: Colors.black,
-                  ),
-                  Text(
-                    "Night Ligth",
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600),
-                  )
-                ],
+            GestureDetector(
+              onTap: () {
+                BlocProvider.of<TasksCubit>(context).darktheme();
+              },
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 60, vertical: 16),
+                child: widget.isDark
+                    ? const Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.light_mode_outlined,
+                            weight: 18,
+                            color: Colors.white,
+                          ),
+                          Text(
+                            "Day Ligth",
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600),
+                          )
+                        ],
+                      )
+                    : const Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Icon(
+                            Icons.nightlight_outlined,
+                            weight: 18,
+                            color: Colors.black,
+                          ),
+                          Text(
+                            "Night Ligth",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600),
+                          )
+                        ],
+                      ),
               ),
-            ),
+            )
           ],
         ),
         Positioned(

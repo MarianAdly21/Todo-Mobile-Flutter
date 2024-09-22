@@ -7,6 +7,11 @@ class TasksCubit extends Cubit<TasksState> {
   TasksCubit() : super(InitialState());
   bool isGrid = false;
   List<TaskModel> tasks = [];
+  bool isDark = false;
+  void darktheme() {
+    isDark = !isDark;
+    emit(convertThemeState(isDark: isDark));
+  }
 
   void changeUi() {
     isGrid = !isGrid;

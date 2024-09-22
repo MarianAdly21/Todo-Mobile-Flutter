@@ -6,8 +6,8 @@ import 'package:todo_mobile/features/home/widgets/custom_task_item.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
-
+  const SearchScreen({super.key, required this.isDark});
+  final bool isDark;
   @override
   State<SearchScreen> createState() => _SearchScreenState();
 }
@@ -17,6 +17,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: widget.isDark ? Colors.black : Colors.white,
       body: SafeArea(
         child: Column(
           children: [

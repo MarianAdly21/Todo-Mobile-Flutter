@@ -26,3 +26,9 @@ class SearchLoadedState extends TasksState {
   final List<TaskModel> tasksFounded;
   SearchLoadedState({required this.tasksFounded});
 }
+
+class convertThemeState extends TasksState {
+  final bool isDark;
+
+  convertThemeState({required this.isDark});
+}
