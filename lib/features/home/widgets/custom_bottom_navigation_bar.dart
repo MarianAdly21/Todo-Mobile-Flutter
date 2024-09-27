@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_mobile/features/home/cubits/add_tasks_cubit.dart/add_task_state.dart';
 import 'package:todo_mobile/features/home/cubits/add_tasks_cubit.dart/add_tasks_cubit.dart';
 import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
+import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/features/home/screens/home_screen.dart';
 import 'package:todo_mobile/features/home/widgets/add_task_form.dart';
 import 'package:todo_mobile/res/app_colors.dart';
@@ -11,8 +12,10 @@ class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({
     super.key,
     required this.isDark,
+    required this.onSavePressed,
   });
   final bool isDark;
+  final void Function(TaskModel) onSavePressed;
 
   @override
   State<CustomBottomNavigationBar> createState() =>
@@ -100,16 +103,13 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
           child: FloatingActionButton(
             backgroundColor: AppColors.colorTaskItem,
             shape: const CircleBorder(),
-            onPressed: () async {
-              final addDone = await showModalBottomSheet(
+            onPressed: () {
+              showModalBottomSheet(
                   isScrollControlled: true,
                   context: context,
                   builder: (context) {
                     return _addTaskBottomSheet(context);
                   });
-              if (addDone != null) {
-                currentTasksCubit(context).getAllTasks();
-              }
             },
             child: const Icon(
               Icons.add,
@@ -147,6 +147,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             child: SingleChildScrollView(
               child: AddTaskForm(
                 isDark: widget.isDark,
+                onSavePressed: (taskModel) {
+                  widget.onSavePressed(taskModel);
+                },
               ),
             ),
           );

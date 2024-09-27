@@ -34,9 +34,8 @@ class _HomeScreenState extends State<HomeScreen> {
       listener: (context, state) {
         if (state is ConvertUiState) {
           isGrid = state.isGrid;
-        }
-        if (state is ConvertThemeState) {
-          isDark = state.isDark;
+        } else if (state is DeleteTaskSuccessfullyState) {
+          _getAllTasks();
         }
       },
       builder: (context, state) {
@@ -44,6 +43,9 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: isDark ? Colors.black : Colors.white,
           bottomNavigationBar: CustomBottomNavigationBar(
             isDark: isDark,
+            onSavePressed: (taskModel) {
+              _addTask(taskModel);
+            },
           ),
           appBar: _homeAppBarWidget(),
           body: _pageContent(),
@@ -84,8 +86,12 @@ class _HomeScreenState extends State<HomeScreen> {
               return isGrid
                   ? TaskItemGrid(
                       tasks: tasks,
+                      onDeleteTap: (index) => _deleteTask(index),
                     )
-                  : TaskItemList(task: tasks);
+                  : TaskItemList(
+                      task: tasks,
+                      onDeleteTap: (index) => _deleteTask(index),
+                    );
             } else {
               return const SizedBox();
             }
@@ -148,13 +154,18 @@ class _HomeScreenState extends State<HomeScreen> {
 ///////////////////////////////////////////////////////////
 
   void _onLeadingIconTap() {
-    currentTasksCubit(context).changeUi();
+    currentCubit.changeUi();
   }
 
   void _getAllTasks() {
-    currentTasksCubit(context).getAllTasks();
+    currentCubit.getAllTasks();
   }
-}
 
-TasksCubit currentTasksCubit(BuildContext context) =>
-    context.read<TasksCubit>();
+  void _addTask(TaskModel task) {
+    currentCubit.addTasks(task);
+  }
+
+  _deleteTask(int index) => currentCubit.deleteTask(tasks[index]);
+
+  TasksCubit get currentCubit => context.read<TasksCubit>();
+}

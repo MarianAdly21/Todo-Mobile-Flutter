@@ -7,8 +7,13 @@ import 'package:todo_mobile/res/app_asset_paths.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
 class TaskItemGrid extends StatelessWidget {
-  const TaskItemGrid({super.key, required this.tasks});
+  const TaskItemGrid({
+    super.key,
+    required this.tasks,
+    required this.onDeleteTap,
+  });
   final List<TaskModel> tasks;
+  final void Function(int) onDeleteTap;
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +28,11 @@ class TaskItemGrid extends StatelessWidget {
           childAspectRatio: 0.94,
         ),
         itemBuilder: (context, index) {
-          return _taskContant(task: tasks[index], context, index: index);
+          return _taskContant(
+            task: tasks[index],
+            context,
+            index: index,
+          );
         },
       ),
     );
@@ -87,9 +96,7 @@ class TaskItemGrid extends StatelessWidget {
               Padding(
                 padding: const EdgeInsetsDirectional.only(start: 10, end: 8),
                 child: CustomIcon(
-                  onTap: () {
-                    deleteTask(task, context);
-                  },
+                  onTap: () => onDeleteTap(index),
                   assetName: AppAssetPaths.trashIcon,
                   width: 24,
                   height: 27,
@@ -102,11 +109,4 @@ class TaskItemGrid extends StatelessWidget {
       ),
     );
   }
-
-
-}
-
-void deleteTask(TaskModel task, BuildContext context) {
-  task.delete();
-  currentTasksCubit(context).getAllTasks();
 }

@@ -42,7 +42,9 @@ class _SearchScreenState extends State<SearchScreen> {
                         padding: const EdgeInsets.symmetric(
                             horizontal: 21, vertical: 10),
                         child: TaskItem(
-                            task: state.tasksFounded[index], index: index));
+                            onDeleteTap: () {},
+                            task: state.tasksFounded[index],
+                            index: index));
                   }),
             );
           } else {

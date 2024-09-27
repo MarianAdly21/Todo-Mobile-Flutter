@@ -5,8 +5,11 @@ import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
 class AddTaskForm extends StatefulWidget {
-  const AddTaskForm({super.key, required this.isDark});
+  const AddTaskForm(
+      {super.key, required this.isDark, required this.onSavePressed});
   final bool isDark;
+  final void Function(TaskModel) onSavePressed;
+
   @override
   State<AddTaskForm> createState() => _AddTaskFormState();
 }
@@ -27,21 +30,18 @@ class _AddTaskFormState extends State<AddTaskForm> {
           _customText(title: 'Todo Title'),
           _customTextFormField(
             hintText: "Todo title....",
+            textInputAction: TextInputAction.next,
             onSaved: (value) {
               title = value;
-            },
-            onFieldSubmitted: (value) {
-              _addTaskFromBottomSheet();
             },
           ),
           _customText(title: 'Write anything in your mind'),
           _customTextFormField(
             hintText: "Write anything in your mind",
+            textInputAction: TextInputAction.done,
+            onFieldSubmitted: (p0) => _addTaskFromBottomSheet(),
             onSaved: (value) {
               content = value;
-            },
-            onFieldSubmitted: (value) {
-              _addTaskFromBottomSheet();
             },
           ),
           _customButton(
@@ -88,7 +88,8 @@ class _AddTaskFormState extends State<AddTaskForm> {
   Widget _customTextFormField({
     required String hintText,
     void Function(String?)? onSaved,
-    void Function(String?)? onFieldSubmitted,
+    TextInputAction? textInputAction,
+    void Function(String)? onFieldSubmitted,
   }) {
     return Padding(
       padding: const EdgeInsetsDirectional.only(
@@ -96,6 +97,7 @@ class _AddTaskFormState extends State<AddTaskForm> {
         bottom: 23,
       ),
       child: TextFormField(
+        textInputAction: textInputAction,
         onFieldSubmitted: onFieldSubmitted,
         onSaved: onSaved,
         validator: (value) {
@@ -159,10 +161,9 @@ class _AddTaskFormState extends State<AddTaskForm> {
         isDone: isDone,
       );
 
-      _addTask(taskModel);
+      widget.onSavePressed(taskModel);
     } else {
       autovalidateMode = AutovalidateMode.always;
-      setState(() {});
     }
   }
 }
