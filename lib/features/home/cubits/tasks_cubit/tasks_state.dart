@@ -33,6 +33,6 @@ class ConvertThemeState extends TasksState {
   ConvertThemeState({required this.isDark});
 }
 
-class AddTasksSuccessState extends TasksState {}
+class AddTaskSuccessfullyState extends TasksState {}
 
 class DeleteTaskSuccessfullyState extends TasksState {}

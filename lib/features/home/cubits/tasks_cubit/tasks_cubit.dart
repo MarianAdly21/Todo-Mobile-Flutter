@@ -47,7 +47,7 @@ class TasksCubit extends Cubit<TasksState> {
     try {
       var taskBox = Hive.box<TaskModel>('taskBox');
       await taskBox.add(task);
-      emit(AddTasksSuccessState());
+      emit(AddTaskSuccessfullyState());
     } catch (e) {
       emit(FailuerState(e.toString()));
     }

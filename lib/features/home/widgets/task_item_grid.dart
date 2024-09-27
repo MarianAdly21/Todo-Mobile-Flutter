@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:todo_mobile/features/home/models/task_model.dart';
-import 'package:todo_mobile/features/home/screens/home_screen.dart';
 import 'package:todo_mobile/features/home/widgets/custom_check_box.dart';
 import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
@@ -83,16 +82,7 @@ class TaskItemGrid extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              CustomCheckBox(
-                task: task,
-                index: index,
-              ),
-              // CustomIcon(
-              //   onTap: () {},
-              //   assetName: AppAssetPaths.checkBoxIcon,
-              //   width: 24,
-              //   height: 28,
-              // ),
+              CustomCheckBox(task: task, index: index),
               Padding(
                 padding: const EdgeInsetsDirectional.only(start: 10, end: 8),
                 child: CustomIcon(

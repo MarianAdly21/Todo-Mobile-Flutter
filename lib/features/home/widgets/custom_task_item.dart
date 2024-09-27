@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/features/home/widgets/custom_check_box.dart';
 import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
-import 'package:todo_mobile/features/home/widgets/task_item_grid.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 

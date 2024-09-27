@@ -36,6 +36,9 @@ class _HomeScreenState extends State<HomeScreen> {
           isGrid = state.isGrid;
         } else if (state is DeleteTaskSuccessfullyState) {
           _getAllTasks();
+        } else if (state is AddTaskSuccessfullyState) {
+          Navigator.of(context).pop();
+          _getAllTasks();
         }
       },
       builder: (context, state) {
