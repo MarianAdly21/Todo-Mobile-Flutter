@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_mobile/features/home/cubits/add_tasks_cubit.dart/add_tasks_cubit.dart';
 import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
@@ -145,12 +143,6 @@ class _AddTaskFormState extends State<AddTaskForm> {
 ///////////////////////////////////////////////////////////
 //////////////////// Helper methods ///////////////////////
 ///////////////////////////////////////////////////////////
-  AddTasksCubit get currentAddTasksCubit =>
-      BlocProvider.of<AddTasksCubit>(context);
-
-  void _addTask(TaskModel taskModel) {
-    currentAddTasksCubit.addTasks(taskModel);
-  }
 
   void _addTaskFromBottomSheet() {
     if (formKey.currentState!.validate()) {

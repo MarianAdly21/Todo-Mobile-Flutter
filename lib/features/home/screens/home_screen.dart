@@ -39,13 +39,15 @@ class _HomeScreenState extends State<HomeScreen> {
         } else if (state is AddTaskSuccessfullyState) {
           Navigator.of(context).pop();
           _getAllTasks();
+        } else if (state is ConvertThemeState) {
+          isDark = state.isDark;
         }
       },
       builder: (context, state) {
         return Scaffold(
           backgroundColor: isDark ? Colors.black : Colors.white,
           bottomNavigationBar: CustomBottomNavigationBar(
-            isDark: isDark,
+            // isDark: isDark,
             onSavePressed: (taskModel) {
               _addTask(taskModel);
             },
@@ -80,12 +82,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         BlocBuilder<TasksCubit, TasksState>(
           buildWhen: (previous, current) =>
-              current is LoadedTasksSuccessState || current is ConvertUiState,
+              current is LoadedTasksSuccessState ||
+              current is ConvertUiState ||
+              current is ConvertThemeState,
           builder: (context, state) {
             if (state is LoadedTasksSuccessState) {
               tasks = state.tasks;
             }
-            if (state is LoadedTasksSuccessState || state is ConvertUiState) {
+            if (state is LoadedTasksSuccessState || state is ConvertUiState || state is ConvertThemeState) {
               return isGrid
                   ? TaskItemGrid(
                       tasks: tasks,
