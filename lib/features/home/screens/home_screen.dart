@@ -89,15 +89,23 @@ class _HomeScreenState extends State<HomeScreen> {
             if (state is LoadedTasksSuccessState) {
               tasks = state.tasks;
             }
-            if (state is LoadedTasksSuccessState || state is ConvertUiState || state is ConvertThemeState) {
+            if (state is LoadedTasksSuccessState ||
+                state is ConvertUiState ||
+                state is ConvertThemeState) {
               return isGrid
                   ? TaskItemGrid(
                       tasks: tasks,
                       onDeleteTap: (index) => _deleteTask(index),
+                      onDonePressed: (task, indexOfTask, isDone) {
+                        _doneTask(isDone, indexOfTask, task);
+                      },
                     )
                   : TaskItemList(
                       task: tasks,
                       onDeleteTap: (index) => _deleteTask(index),
+                      onDonePressed: (task, indexOfTask, isDone) {
+                        _doneTask(isDone, indexOfTask, task);
+                      },
                     );
             } else {
               return const SizedBox();
@@ -175,4 +183,9 @@ class _HomeScreenState extends State<HomeScreen> {
   _deleteTask(int index) => currentCubit.deleteTask(tasks[index]);
 
   TasksCubit get currentCubit => context.read<TasksCubit>();
+
+  void _doneTask(bool isDone, int indexOfTask, TaskModel task) {
+    isDone = !isDone;
+    currentCubit.updateTask(isDone, indexOfTask, task);
+  }
 }

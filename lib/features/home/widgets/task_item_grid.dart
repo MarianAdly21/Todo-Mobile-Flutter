@@ -10,9 +10,12 @@ class TaskItemGrid extends StatelessWidget {
     super.key,
     required this.tasks,
     required this.onDeleteTap,
+    required this.onDonePressed,
   });
   final List<TaskModel> tasks;
   final void Function(int) onDeleteTap;
+  final void Function(TaskModel task, int indexOfTask, bool isDone)
+      onDonePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +85,10 @@ class TaskItemGrid extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              CustomCheckBox(task: task, index: index),
+              CustomCheckBox(
+                task: task,
+                onDonePressed: () => onDonePressed(task, index, task.isDone),
+              ),
               Padding(
                 padding: const EdgeInsetsDirectional.only(start: 10, end: 8),
                 child: CustomIcon(

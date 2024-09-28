@@ -36,3 +36,4 @@ class ConvertThemeState extends TasksState {
 class AddTaskSuccessfullyState extends TasksState {}
 
 class DeleteTaskSuccessfullyState extends TasksState {}
+class DoneTaskSuccessfullyState extends TasksState {}

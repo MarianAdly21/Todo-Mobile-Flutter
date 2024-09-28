@@ -11,11 +11,13 @@ class TaskItem extends StatelessWidget {
     required this.task,
     required this.index,
     required this.onDeleteTap,
+    required this.onDonePressed,
   });
   final TaskModel task;
   final int index;
 
   final void Function() onDeleteTap;
+  final void Function() onDonePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,10 @@ class TaskItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: ListTile(
-        leading: CustomCheckBox(task: task, index: index),
+        leading: CustomCheckBox(
+          task: task,
+          onDonePressed: onDonePressed,
+        ),
         title: Padding(
           padding: const EdgeInsetsDirectional.only(
             start: 14,

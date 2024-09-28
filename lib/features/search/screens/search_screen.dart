@@ -43,6 +43,9 @@ class _SearchScreenState extends State<SearchScreen> {
                             horizontal: 21, vertical: 10),
                         child: TaskItem(
                             onDeleteTap: () {},
+                            onDonePressed: () {
+                              
+                            },
                             task: state.tasksFounded[index],
                             index: index));
                   }),

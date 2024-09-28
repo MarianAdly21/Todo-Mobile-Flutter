@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_state.dart';
@@ -60,5 +61,13 @@ class TasksCubit extends Cubit<TasksState> {
     } catch (e) {
       emit(FailuerState(e.toString()));
     }
+  }
+
+  updateTask(bool? value, int index, TaskModel task) async {
+    debugPrint("Befor Update ${task.isDone}");
+    task.isDone = value!;
+    await Hive.box<TaskModel>('taskBox').putAt(index, task);
+    emit(DoneTaskSuccessfullyState());
+    debugPrint("After Update ${task.isDone}");
   }
 }
