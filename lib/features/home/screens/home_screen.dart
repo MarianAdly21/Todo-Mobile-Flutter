@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_mobile/features/home/cubits/search_cubit/search_cubit.dart';
 import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
 import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_state.dart';
 import 'package:todo_mobile/features/home/models/task_model.dart';
@@ -135,8 +136,11 @@ class _HomeScreenState extends State<HomeScreen> {
           child: CustomIcon(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return SearchScreen(
-                  isDark: isDark,
+                return BlocProvider(
+                  create: (context) => SearchCubit(),
+                  child: SearchScreen(
+                    isDark: isDark,
+                  ),
                 );
               }));
             },

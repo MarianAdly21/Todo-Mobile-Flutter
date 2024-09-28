@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_mobile/features/home/cubits/search_cubit/search_cubit.dart';
+import 'package:todo_mobile/features/home/cubits/search_cubit/search_state.dart';
 import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
 import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_state.dart';
 import 'package:todo_mobile/features/home/widgets/custom_task_item.dart';
@@ -30,7 +32,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   Widget _searchedListWidget() {
-    return BlocBuilder<TasksCubit, TasksState>(
+    return BlocBuilder<SearchCubit, SearchState>(
       builder: (context, state) {
         if (state is SearchLoadedState) {
           if (state.tasksFounded.isNotEmpty) {
@@ -43,9 +45,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             horizontal: 21, vertical: 10),
                         child: TaskItem(
                             onDeleteTap: () {},
-                            onDonePressed: () {
-                              
-                            },
+                            onDonePressed: () {  },
                             task: state.tasksFounded[index],
                             index: index));
                   }),
@@ -118,6 +118,6 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void _getTaskSearch(value) {
-    BlocProvider.of<TasksCubit>(context).getTaskSearch(value);
+    BlocProvider.of<SearchCubit>(context).getTaskSearch(value);
   }
 }

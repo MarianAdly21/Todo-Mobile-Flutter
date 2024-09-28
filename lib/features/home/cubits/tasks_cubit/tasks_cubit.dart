@@ -21,19 +21,19 @@ class TasksCubit extends Cubit<TasksState> {
 
   var taskBox = Hive.box<TaskModel>('taskBox');
 
-  getTaskSearch(String titleSearch) {
-    List<TaskModel> searchResultList = [];
-    tasks = taskBox.values.toList();
-    if (titleSearch.isNotEmpty) {
-      for (int i = 0; i < tasks.length; i++) {
-        if (tasks[i].title.contains(titleSearch)) {
-          searchResultList.add(tasks[i]);
-        }
-      }
-    }
+  // getTaskSearch(String titleSearch) {
+  //   List<TaskModel> searchResultList = [];
+  //   tasks = taskBox.values.toList();
+  //   if (titleSearch.isNotEmpty) {
+  //     for (int i = 0; i < tasks.length; i++) {
+  //       if (tasks[i].title.contains(titleSearch)) {
+  //         searchResultList.add(tasks[i]);
+  //       }
+  //     }
+  //   }
 
-    return emit(SearchLoadedState(tasksFounded: searchResultList));
-  }
+  //   return emit(SearchLoadedState(tasksFounded: searchResultList));
+  // }
 
   getAllTasks() {
     try {
