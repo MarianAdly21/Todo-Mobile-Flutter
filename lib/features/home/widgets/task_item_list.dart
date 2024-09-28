@@ -4,11 +4,14 @@ import 'package:todo_mobile/features/home/widgets/custom_task_item.dart';
 
 class TaskItemList extends StatelessWidget {
   const TaskItemList(
-      {super.key, required this.task, required this.onDeleteTap, required this.onDonePressed});
+      {super.key,
+      required this.task,
+      required this.onDeleteTap,
+      required this.onDonePressed});
   final List<TaskModel> task;
 
   final void Function(int) onDeleteTap;
-  final void Function(TaskModel task,int indexOfTask,bool isDone) onDonePressed;
+  final void Function(TaskModel task, int indexOfTask) onDonePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +24,8 @@ class TaskItemList extends StatelessWidget {
             index: index,
             task: task[index],
             onDeleteTap: () => onDeleteTap(index),
-            onDonePressed: () =>onDonePressed(task[index],index,task[index].isDone) ,
-
+            onDonePressed: () =>
+                onDonePressed(task[index], index),
           ),
         ),
       ),

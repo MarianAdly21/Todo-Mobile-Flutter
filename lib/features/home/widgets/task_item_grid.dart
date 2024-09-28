@@ -14,8 +14,7 @@ class TaskItemGrid extends StatelessWidget {
   });
   final List<TaskModel> tasks;
   final void Function(int) onDeleteTap;
-  final void Function(TaskModel task, int indexOfTask, bool isDone)
-      onDonePressed;
+  final void Function(TaskModel task, int indexOfTask) onDonePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +86,7 @@ class TaskItemGrid extends StatelessWidget {
             children: [
               CustomCheckBox(
                 task: task,
-                onDonePressed: () => onDonePressed(task, index, task.isDone),
+                onDonePressed: () => onDonePressed(task, index),
               ),
               Padding(
                 padding: const EdgeInsetsDirectional.only(start: 10, end: 8),

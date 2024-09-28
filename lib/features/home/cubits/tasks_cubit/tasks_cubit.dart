@@ -21,20 +21,6 @@ class TasksCubit extends Cubit<TasksState> {
 
   var taskBox = Hive.box<TaskModel>('taskBox');
 
-  // getTaskSearch(String titleSearch) {
-  //   List<TaskModel> searchResultList = [];
-  //   tasks = taskBox.values.toList();
-  //   if (titleSearch.isNotEmpty) {
-  //     for (int i = 0; i < tasks.length; i++) {
-  //       if (tasks[i].title.contains(titleSearch)) {
-  //         searchResultList.add(tasks[i]);
-  //       }
-  //     }
-  //   }
-
-  //   return emit(SearchLoadedState(tasksFounded: searchResultList));
-  // }
-
   getAllTasks() {
     try {
       tasks = taskBox.values.toList();
@@ -63,9 +49,9 @@ class TasksCubit extends Cubit<TasksState> {
     }
   }
 
-  updateTask(bool? value, int index, TaskModel task) async {
+  updateTask(int index, TaskModel task) async {
     debugPrint("Befor Update ${task.isDone}");
-    task.isDone = value!;
+    task.isDone = !task.isDone;
     await Hive.box<TaskModel>('taskBox').putAt(index, task);
     emit(DoneTaskSuccessfullyState());
     debugPrint("After Update ${task.isDone}");

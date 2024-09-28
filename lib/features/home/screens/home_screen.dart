@@ -12,14 +12,26 @@ import 'package:todo_mobile/features/search/screens/search_screen.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => TasksCubit(),
+      child: const HomeScreenWithCubit(),
+    );
+  }
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenWithCubit extends StatefulWidget {
+  const HomeScreenWithCubit({super.key});
+
+  @override
+  State<HomeScreenWithCubit> createState() => _HomeScreenWithCubitState();
+}
+
+class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
   bool isGrid = false;
   bool isDark = false;
   List<TaskModel> tasks = [];
@@ -97,15 +109,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   ? TaskItemGrid(
                       tasks: tasks,
                       onDeleteTap: (index) => _deleteTask(index),
-                      onDonePressed: (task, indexOfTask, isDone) {
-                        _doneTask(isDone, indexOfTask, task);
+                      onDonePressed: (task, indexOfTask) {
+                        _doneTask(indexOfTask, task);
                       },
                     )
                   : TaskItemList(
                       task: tasks,
                       onDeleteTap: (index) => _deleteTask(index),
-                      onDonePressed: (task, indexOfTask, isDone) {
-                        _doneTask(isDone, indexOfTask, task);
+                      onDonePressed: (task, indexOfTask) {
+                        _doneTask(indexOfTask, task);
                       },
                     );
             } else {
@@ -136,12 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: CustomIcon(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return BlocProvider(
-                  create: (context) => SearchCubit(),
-                  child: SearchScreen(
-                    isDark: isDark,
-                  ),
-                );
+                return SearchScreen(isDark: isDark);
               }));
             },
             assetName: AppAssetPaths.searchIcon,
@@ -188,8 +195,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   TasksCubit get currentCubit => context.read<TasksCubit>();
 
-  void _doneTask(bool isDone, int indexOfTask, TaskModel task) {
-    isDone = !isDone;
-    currentCubit.updateTask(isDone, indexOfTask, task);
+  void _doneTask(int indexOfTask, TaskModel task) {
+    currentCubit.updateTask(indexOfTask, task);
   }
 }

@@ -2,19 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_mobile/features/home/cubits/search_cubit/search_cubit.dart';
 import 'package:todo_mobile/features/home/cubits/search_cubit/search_state.dart';
-import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
-import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_state.dart';
 import 'package:todo_mobile/features/home/widgets/custom_task_item.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
-class SearchScreen extends StatefulWidget {
+class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key, required this.isDark});
   final bool isDark;
+
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => SearchCubit(),
+      child: SearchScreenWithCubit(isDark: isDark),
+    );
+  }
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class SearchScreenWithCubit extends StatefulWidget {
+  const SearchScreenWithCubit({super.key, required this.isDark});
+  final bool isDark;
+  @override
+  State<SearchScreenWithCubit> createState() => _SearchScreenWithCubitState();
+}
+
+class _SearchScreenWithCubitState extends State<SearchScreenWithCubit> {
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -25,11 +36,12 @@ class _SearchScreenState extends State<SearchScreen> {
           children: [
             _searchTextFormFieldWidget(),
             _searchedListWidget(),
-          ],
+          ]
         ),
       ),
     );
   }
+  
 
   Widget _searchedListWidget() {
     return BlocBuilder<SearchCubit, SearchState>(
@@ -45,7 +57,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             horizontal: 21, vertical: 10),
                         child: TaskItem(
                             onDeleteTap: () {},
-                            onDonePressed: () {  },
+                            onDonePressed: () {},
                             task: state.tasksFounded[index],
                             index: index));
                   }),
