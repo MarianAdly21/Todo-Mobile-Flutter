@@ -4,6 +4,7 @@ import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
 import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_state.dart';
 import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/features/home/widgets/add_task_form.dart';
+import 'package:todo_mobile/features/language/configuration_lang.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
@@ -37,19 +38,19 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 80, vertical: 16),
+                 Padding(
+                  padding:const EdgeInsets.symmetric(horizontal: 80, vertical: 16),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
+                    const  Icon(
                         Icons.home_outlined,
                         weight: 18,
                         color: AppColors.colorTaskItem,
                       ),
                       Text(
-                        "Home",
-                        style: TextStyle(
+                      ConfagurationLanguage.localization["home_text"] ,
+                        style:const TextStyle(
                             color: AppColors.colorTaskItem,
                             fontSize: 12,
                             fontWeight: FontWeight.w600),
@@ -65,34 +66,34 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 60, vertical: 16),
                     child: isDark
-                        ? const Column(
+                        ? Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.light_mode_outlined,
                                 weight: 18,
                                 color: Colors.white,
                               ),
                               Text(
-                                "Day Ligth",
-                                style: TextStyle(
+                                ConfagurationLanguage.localization["light"],
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),
                               )
                             ],
                           )
-                        : const Column(
+                        : Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
+                              const Icon(
                                 Icons.nightlight_outlined,
                                 weight: 18,
                                 color: Colors.black,
                               ),
                               Text(
-                                "Night Ligth",
-                                style: TextStyle(
+                                ConfagurationLanguage.localization["dark"],
+                                style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),

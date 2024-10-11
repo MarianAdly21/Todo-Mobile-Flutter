@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_mobile/features/home/cubits/search_cubit/search_cubit.dart';
 import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
 import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_state.dart';
 import 'package:todo_mobile/features/home/models/task_model.dart';
@@ -8,6 +7,8 @@ import 'package:todo_mobile/features/home/widgets/custom_bottom_navigation_bar.d
 import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
 import 'package:todo_mobile/features/home/widgets/task_item_grid.dart';
 import 'package:todo_mobile/features/home/widgets/task_item_list.dart';
+import 'package:todo_mobile/features/language/configuration_lang.dart';
+import 'package:todo_mobile/features/language/language_cubit/language_cubit.dart';
 import 'package:todo_mobile/features/search/screens/search_screen.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 import 'package:todo_mobile/res/app_colors.dart';
@@ -34,6 +35,7 @@ class HomeScreenWithCubit extends StatefulWidget {
 class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
   bool isGrid = false;
   bool isDark = false;
+  bool isEnglash = true;
   List<TaskModel> tasks = [];
   @override
   void initState() {
@@ -84,7 +86,7 @@ class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
             padding: const EdgeInsetsDirectional.only(
                 start: 20, end: 39, top: 49, bottom: 27),
             child: Text(
-              'Whats on your mind?',
+              ConfagurationLanguage.localization["question_home"],
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
@@ -135,7 +137,8 @@ class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
       leadingWidth: 90,
       leading: appBarLeadingWidget(),
       title: Text(
-        "My Tasks",
+        //"My Tasks"
+        ConfagurationLanguage.localization["name_of_app"],
         style: TextStyle(
           color: isDark ? Colors.white : const Color(0xffFF0000),
           fontSize: 32,
@@ -155,6 +158,17 @@ class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
             color: AppColors.colorSearchIcon,
           ),
         ),
+        IconButton(
+            onPressed: () {
+              isEnglash = !isEnglash;
+              setState(() {});
+              if (isEnglash) {
+                BlocProvider.of<LanguageCubit>(context).changeLang("ar");
+              } else {
+                BlocProvider.of<LanguageCubit>(context).changeLang("en");
+              }
+            },
+            icon: Icon(Icons.abc))
       ],
     );
   }
