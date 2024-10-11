@@ -12,6 +12,7 @@ import 'package:todo_mobile/features/language/language_cubit/language_cubit.dart
 import 'package:todo_mobile/features/search/screens/search_screen.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 import 'package:todo_mobile/res/app_colors.dart';
+import 'package:todo_mobile/utils/local/app_localization_keys.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -86,7 +87,8 @@ class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
             padding: const EdgeInsetsDirectional.only(
                 start: 20, end: 39, top: 49, bottom: 27),
             child: Text(
-              ConfagurationLanguage.localization["question_home"],
+              ConfagurationLanguage
+                  .localization[AppLocalizationKeys.whatsOnYourMind],
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
@@ -138,7 +140,7 @@ class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
       leading: appBarLeadingWidget(),
       title: Text(
         //"My Tasks"
-        ConfagurationLanguage.localization["name_of_app"],
+        ConfagurationLanguage.localization[AppLocalizationKeys.myTasks],
         style: TextStyle(
           color: isDark ? Colors.white : const Color(0xffFF0000),
           fontSize: 32,
@@ -168,7 +170,7 @@ class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
                 BlocProvider.of<LanguageCubit>(context).changeLang("en");
               }
             },
-            icon: Icon(Icons.abc))
+            icon: Icon(Icons.language))
       ],
     );
   }

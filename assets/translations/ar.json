@@ -1,9 +1,9 @@
     {
-        "name_of_app": "مهامي",
-        "question_home": "ما الذي يدور في ذهنك؟",
-        "home_text": "رئيسي",
-        "light": "ضوء النهار",
-        "dark": "ضوء الليل",
-        "search_text": "يبحث",
-        "no_task_text": "لا توجد مهام"
+        "my_tasks": "مهامي",
+        "whats_on_your_mind": "ما الذي يدور في ذهنك؟",
+        "home": "رئيسي",
+        "night_ligth": "ضوء النهار",
+        "day_ligth": "ضوء الليل",
+        "search": "يبحث",
+        "no_tasks": "لا توجد مهام"
     }

@@ -6,6 +6,7 @@ import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/features/home/widgets/add_task_form.dart';
 import 'package:todo_mobile/features/language/configuration_lang.dart';
 import 'package:todo_mobile/res/app_colors.dart';
+import 'package:todo_mobile/utils/local/app_localization_keys.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
   const CustomBottomNavigationBar({
@@ -49,7 +50,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                         color: AppColors.colorTaskItem,
                       ),
                       Text(
-                      ConfagurationLanguage.localization["home_text"] ,
+                      ConfagurationLanguage.localization[AppLocalizationKeys.home] ,
                         style:const TextStyle(
                             color: AppColors.colorTaskItem,
                             fontSize: 12,
@@ -75,7 +76,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                                 color: Colors.white,
                               ),
                               Text(
-                                ConfagurationLanguage.localization["light"],
+                                ConfagurationLanguage.localization[AppLocalizationKeys.dayLigth],
                                 style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
@@ -92,7 +93,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                                 color: Colors.black,
                               ),
                               Text(
-                                ConfagurationLanguage.localization["dark"],
+                                ConfagurationLanguage.localization[AppLocalizationKeys.nightLigth],
                                 style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
