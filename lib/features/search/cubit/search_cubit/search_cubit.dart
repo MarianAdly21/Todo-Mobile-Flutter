@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
-import 'package:todo_mobile/features/home/cubits/search_cubit/search_state.dart';
 import 'package:todo_mobile/features/home/models/task_model.dart';
+import 'package:todo_mobile/features/search/cubit/search_cubit/search_state.dart';
 
 class SearchCubit extends Cubit<SearchState>{
   SearchCubit():super(InitialSearchState());

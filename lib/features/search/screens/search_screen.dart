@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_mobile/features/home/cubits/search_cubit/search_cubit.dart';
-import 'package:todo_mobile/features/home/cubits/search_cubit/search_state.dart';
 import 'package:todo_mobile/features/home/widgets/custom_task_item.dart';
 import 'package:todo_mobile/features/language/configuration_lang.dart';
+import 'package:todo_mobile/features/search/cubit/search_cubit/search_cubit.dart';
+import 'package:todo_mobile/features/search/cubit/search_cubit/search_state.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 import 'package:todo_mobile/utils/local/app_localization_keys.dart';
 
