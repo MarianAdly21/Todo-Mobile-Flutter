@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
-import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_state.dart';
+import 'package:todo_mobile/features/home/bloc/home_screen_bloc.dart';
 import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/features/home/widgets/custom_bottom_navigation_bar.dart';
 import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
@@ -10,7 +9,6 @@ import 'package:todo_mobile/features/home/widgets/task_item_list.dart';
 import 'package:todo_mobile/features/search/screens/search_screen.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 import 'package:todo_mobile/res/app_colors.dart';
-import 'package:todo_mobile/utils/local/app_localization_keys.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -18,41 +16,41 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => TasksCubit(),
-      child: const HomeScreenWithCubit(),
+      create: (context) => HomeScreenBloc(),
+      child: const HomeScreenWithbloc(),
     );
   }
 }
 
-class HomeScreenWithCubit extends StatefulWidget {
-  const HomeScreenWithCubit({super.key});
+class HomeScreenWithbloc extends StatefulWidget {
+  const HomeScreenWithbloc({super.key});
 
   @override
-  State<HomeScreenWithCubit> createState() => _HomeScreenWithCubitState();
+  State<HomeScreenWithbloc> createState() => _HomeScreenWithblocState();
 }
 
-class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
+class _HomeScreenWithblocState extends State<HomeScreenWithbloc> {
   bool isGrid = false;
   bool isDark = false;
   bool isEnglash = true;
   List<TaskModel> tasks = [];
   @override
   void initState() {
-    _getAllTasks();
+    _getAllTasksEvent();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<TasksCubit, TasksState>(
+    return BlocConsumer<HomeScreenBloc, HomeScreenState>(
       listener: (context, state) {
         if (state is ConvertUiState) {
           isGrid = state.isGrid;
         } else if (state is DeleteTaskSuccessfullyState) {
-          _getAllTasks();
+          _getAllTasksEvent();
         } else if (state is AddTaskSuccessfullyState) {
           Navigator.of(context).pop();
-          _getAllTasks();
+          _getAllTasksEvent();
         } else if (state is ConvertThemeState) {
           isDark = state.isDark;
         }
@@ -61,9 +59,8 @@ class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
         return Scaffold(
           backgroundColor: isDark ? Colors.black : Colors.white,
           bottomNavigationBar: CustomBottomNavigationBar(
-            // isDark: isDark,
             onSavePressed: (taskModel) {
-              _addTask(taskModel);
+              _addTaskEvent(taskModel);
             },
           ),
           appBar: _homeAppBarWidget(),
@@ -94,7 +91,7 @@ class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
             ),
           ),
         ),
-        BlocBuilder<TasksCubit, TasksState>(
+        BlocBuilder<HomeScreenBloc, HomeScreenState>(
           buildWhen: (previous, current) =>
               current is LoadedTasksSuccessState ||
               current is ConvertUiState ||
@@ -109,20 +106,20 @@ class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
               return isGrid
                   ? TaskItemGrid(
                       tasks: tasks,
-                      onDeleteTap: (index) => _deleteTask(index),
+                      onDeleteTap: (index) => _deleteTaskEvent(index),
                       onDonePressed: (task, indexOfTask) {
-                        _doneTask(indexOfTask, task);
+                        _doneTaskEvent(indexOfTask, task);
                       },
                     )
                   : TaskItemList(
                       task: tasks,
-                      onDeleteTap: (index) => _deleteTask(index),
+                      onDeleteTap: (index) => _deleteTaskEvent(index),
                       onDonePressed: (task, indexOfTask) {
-                        _doneTask(indexOfTask, task);
+                        _doneTaskEvent(indexOfTask, task);
                       },
                     );
             } else {
-              return const SizedBox();
+              return const SliverToBoxAdapter(child:  SizedBox());
             }
           },
         )
@@ -172,7 +169,7 @@ class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
   }
 
   Widget appBarLeadingWidget() {
-    return BlocBuilder<TasksCubit, TasksState>(
+    return BlocBuilder<HomeScreenBloc, HomeScreenState>(
       buildWhen: (previous, current) => current is ConvertUiState,
       builder: (context, state) {
         return Padding(
@@ -192,22 +189,23 @@ class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
 ///////////////////////////////////////////////////////////
 
   void _onLeadingIconTap() {
-    currentCubit.changeUi();
+    currentbloc.add(ConvertUIEvent());
   }
 
-  void _getAllTasks() {
-    currentCubit.getAllTasks();
+  void _getAllTasksEvent() {
+    currentbloc.add(LoadedTasksEvent());
   }
 
-  void _addTask(TaskModel task) {
-    currentCubit.addTasks(task);
+  void _addTaskEvent(TaskModel task) {
+    currentbloc.add(AddTaskEvent(task: task));
   }
 
-  _deleteTask(int index) => currentCubit.deleteTask(tasks[index]);
+  _deleteTaskEvent(int index) =>
+      currentbloc.add(DeleteTaskEvent(task: tasks[index]));
 
-  TasksCubit get currentCubit => context.read<TasksCubit>();
+  HomeScreenBloc get currentbloc => context.read<HomeScreenBloc>();
 
-  void _doneTask(int indexOfTask, TaskModel task) {
-    currentCubit.updateTask(indexOfTask, task);
+  void _doneTaskEvent(int indexOfTask, TaskModel task) {
+    currentbloc.add(DoneTaskEvent(index: indexOfTask, task: task));
   }
 }

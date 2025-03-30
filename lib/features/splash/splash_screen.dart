@@ -13,7 +13,7 @@ class SplashScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Timer(const Duration(seconds: 3), () {
       Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => const HomeScreenWithCubit()));
+          MaterialPageRoute(builder: (context) => const HomeScreenWithbloc()));
     });
     return Scaffold(
       backgroundColor: AppColors.splashBackground,

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_cubit.dart';
-import 'package:todo_mobile/features/home/cubits/tasks_cubit/tasks_state.dart';
+import 'package:todo_mobile/features/home/bloc/home_screen_bloc.dart';
 import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/features/home/widgets/add_task_form.dart';
 import 'package:todo_mobile/res/app_colors.dart';
@@ -23,7 +22,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   bool isDark = false;
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<TasksCubit, TasksState>(
+    return BlocConsumer<HomeScreenBloc, HomeScreenState>(
       listener: (context, state) {
         if (state is ConvertThemeState) {
           isDark = state.isDark;
@@ -38,7 +37,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-               const  Padding(
+                const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 80, vertical: 16),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -48,7 +47,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                         weight: 18,
                         color: AppColors.colorTaskItem,
                       ),
-                      Text("home",
+                      Text(
+                        "home",
                         style: TextStyle(
                             color: AppColors.colorTaskItem,
                             fontSize: 12,
@@ -59,7 +59,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    BlocProvider.of<TasksCubit>(context).darktheme();
+                    context.read<HomeScreenBloc>().add(ConvertThemeEvent());
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -68,13 +68,14 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                         ? const Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                               Icon(
+                              Icon(
                                 Icons.light_mode_outlined,
                                 weight: 18,
                                 color: Colors.white,
                               ),
-                              Text("dayLigth",
-                                style:  TextStyle(
+                              Text(
+                                "dayLigth",
+                                style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),
@@ -84,13 +85,14 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                         : const Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                               Icon(
+                              Icon(
                                 Icons.nightlight_outlined,
                                 weight: 18,
                                 color: Colors.black,
                               ),
-                              Text("nightLigth",
-                                style:  TextStyle(
+                              Text(
+                                "nightLigth",
+                                style: TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),
@@ -107,6 +109,8 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                 backgroundColor: AppColors.colorTaskItem,
                 shape: const CircleBorder(),
                 onPressed: () {
+                  //context.read<HomeScreenBloc>().add(OpenBottomSheetEvent());
+
                   showModalBottomSheet(
                       isScrollControlled: true,
                       context: context,

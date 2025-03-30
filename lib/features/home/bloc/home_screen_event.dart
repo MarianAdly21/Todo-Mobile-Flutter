@@ -16,7 +16,7 @@ class ConvertUIEvent extends HomeScreenEvent {}
 class DoneTaskEvent extends HomeScreenEvent {
   final int index;
   final TaskModel task;
-   bool isGrid = false;
+  bool isGrid = false;
 
   DoneTaskEvent({required this.index, required this.task});
 }
