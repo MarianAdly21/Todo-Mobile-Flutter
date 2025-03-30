@@ -7,8 +7,6 @@ import 'package:todo_mobile/features/home/widgets/custom_bottom_navigation_bar.d
 import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
 import 'package:todo_mobile/features/home/widgets/task_item_grid.dart';
 import 'package:todo_mobile/features/home/widgets/task_item_list.dart';
-import 'package:todo_mobile/features/language/configuration_lang.dart';
-import 'package:todo_mobile/features/language/language_cubit/language_cubit.dart';
 import 'package:todo_mobile/features/search/screens/search_screen.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 import 'package:todo_mobile/res/app_colors.dart';
@@ -87,8 +85,7 @@ class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
             padding: const EdgeInsetsDirectional.only(
                 start: 20, end: 39, top: 49, bottom: 27),
             child: Text(
-              ConfagurationLanguage
-                  .localization[AppLocalizationKeys.whatsOnYourMind],
+              "whats on your mind",
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
@@ -139,8 +136,7 @@ class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
       leadingWidth: 90,
       leading: appBarLeadingWidget(),
       title: Text(
-        //"My Tasks"
-        ConfagurationLanguage.localization[AppLocalizationKeys.myTasks],
+        "My Tasks",
         style: TextStyle(
           color: isDark ? Colors.white : const Color(0xffFF0000),
           fontSize: 32,
@@ -162,13 +158,13 @@ class _HomeScreenWithCubitState extends State<HomeScreenWithCubit> {
         ),
         IconButton(
             onPressed: () {
-              isEnglash = !isEnglash;
-              setState(() {});
-              if (isEnglash) {
-                BlocProvider.of<LanguageCubit>(context).changeLang("ar");
-              } else {
-                BlocProvider.of<LanguageCubit>(context).changeLang("en");
-              }
+              // isEnglash = !isEnglash;
+              // setState(() {});
+              // if (isEnglash) {
+              //   BlocProvider.of<LanguageCubit>(context).changeLang("ar");
+              // } else {
+              //   BlocProvider.of<LanguageCubit>(context).changeLang("en");
+              // }
             },
             icon: Icon(Icons.language))
       ],

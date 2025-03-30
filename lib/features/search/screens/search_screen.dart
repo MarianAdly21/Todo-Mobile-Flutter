@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_mobile/features/home/widgets/custom_task_item.dart';
-import 'package:todo_mobile/features/language/configuration_lang.dart';
 import 'package:todo_mobile/features/search/cubit/search_cubit/search_cubit.dart';
 import 'package:todo_mobile/features/search/cubit/search_cubit/search_state.dart';
 import 'package:todo_mobile/res/app_colors.dart';
@@ -63,8 +62,7 @@ class _SearchScreenWithCubitState extends State<SearchScreenWithCubit> {
             );
           } else {
             return Center(
-              child: Text(
-                ConfagurationLanguage.localization[AppLocalizationKeys.noTasks],
+              child: Text("noTasks",
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w800,
@@ -95,8 +93,7 @@ class _SearchScreenWithCubitState extends State<SearchScreenWithCubit> {
               _buildBorderTextFormField(color: AppColors.colorTaskItem),
           border: _buildBorderTextFormField(),
           enabledBorder: _buildBorderTextFormField(),
-          hintText:
-              ConfagurationLanguage.localization[AppLocalizationKeys.search],
+          hintText:"search",
           hintStyle: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w400,
