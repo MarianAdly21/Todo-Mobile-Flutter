@@ -34,3 +34,5 @@ class DeleteTaskSuccessfullyState extends HomeScreenState {}
 
 class DoneTaskSuccessfullyState extends HomeScreenState {}
 
+class OpenSearchScreenSuccessfullyState extends HomeScreenState {}
+

@@ -53,6 +53,14 @@ class _HomeScreenWithblocState extends State<HomeScreenWithbloc> {
           _getAllTasksEvent();
         } else if (state is ConvertThemeState) {
           isDark = state.isDark;
+        } else if (state is OpenSearchScreenSuccessfullyState){
+              Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return SearchScreen(isDark: isDark);
+              },
+            ),
+          );
         }
       },
       builder: (context, state) {
@@ -119,7 +127,7 @@ class _HomeScreenWithblocState extends State<HomeScreenWithbloc> {
                       },
                     );
             } else {
-              return const SliverToBoxAdapter(child:  SizedBox());
+              return const SliverToBoxAdapter(child: SizedBox());
             }
           },
         )
@@ -145,9 +153,12 @@ class _HomeScreenWithblocState extends State<HomeScreenWithbloc> {
           padding: const EdgeInsetsDirectional.only(start: 14, end: 27),
           child: CustomIcon(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return SearchScreen(isDark: isDark);
-              }));
+              currentbloc.add(
+                OpenSearchScreenEvent(isDark: isDark),
+              );
+              // Navigator.of(context).push(MaterialPageRoute(builder: (context) {
+              //   return SearchScreen(isDark: isDark);
+              // }));
             },
             assetName: AppAssetPaths.searchIcon,
             color: AppColors.colorSearchIcon,

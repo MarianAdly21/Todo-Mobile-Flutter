@@ -29,6 +29,10 @@ class DeleteTaskEvent extends HomeScreenEvent {
 
 class ConvertThemeEvent extends HomeScreenEvent {}
 
-class OpenSearchScreenEvent extends HomeScreenEvent {}
+class OpenSearchScreenEvent extends HomeScreenEvent {
+  final bool isDark;
+
+  OpenSearchScreenEvent({required this.isDark});
+}
 
 class OpenBottomSheetEvent extends HomeScreenEvent {}

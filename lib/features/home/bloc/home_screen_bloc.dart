@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:meta/meta.dart';
 import 'package:todo_mobile/features/home/models/task_model.dart';
+import 'package:todo_mobile/features/search/screens/search_screen.dart';
 
 part 'home_screen_event.dart';
 part 'home_screen_state.dart';
@@ -21,6 +22,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     on<DoneTaskEvent>(_doneTaskEvent);
     on<ConvertUIEvent>(_convertUiEvent);
     on<ConvertThemeEvent>(_convertThemEvent);
+    on<OpenSearchScreenEvent>(_openSearchScreenEvent);
   }
 
   FutureOr<void> _loadedTasksEvent(
@@ -69,8 +71,14 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     emit(ConvertUiState(isGrid: isGrid));
   }
 
-  FutureOr<void> _convertThemEvent(ConvertThemeEvent event, Emitter<HomeScreenState> emit) {
+  FutureOr<void> _convertThemEvent(
+      ConvertThemeEvent event, Emitter<HomeScreenState> emit) {
     isDark = !isDark;
     emit(ConvertThemeState(isDark: isDark));
+  }
+
+  FutureOr<void> _openSearchScreenEvent(
+      OpenSearchScreenEvent event, Emitter<HomeScreenState> emit) {
+    emit(OpenSearchScreenSuccessfullyState());
   }
 }
