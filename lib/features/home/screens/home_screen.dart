@@ -53,8 +53,8 @@ class _HomeScreenWithblocState extends State<HomeScreenWithbloc> {
           _getAllTasksEvent();
         } else if (state is ConvertThemeState) {
           isDark = state.isDark;
-        } else if (state is OpenSearchScreenSuccessfullyState){
-              Navigator.of(context).push(
+        } else if (state is OpenSearchScreenState) {
+          Navigator.of(context).push(
             MaterialPageRoute(
               builder: (context) {
                 return SearchScreen(isDark: isDark);

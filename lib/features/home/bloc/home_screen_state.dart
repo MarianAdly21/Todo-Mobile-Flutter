@@ -4,6 +4,7 @@ part of 'home_screen_bloc.dart';
 sealed class HomeScreenState {}
 
 final class HomeScreenInitialState extends HomeScreenState {}
+
 class LoadedTasksSuccessState extends HomeScreenState {
   final List<TaskModel> tasks;
 
@@ -34,5 +35,6 @@ class DeleteTaskSuccessfullyState extends HomeScreenState {}
 
 class DoneTaskSuccessfullyState extends HomeScreenState {}
 
-class OpenSearchScreenSuccessfullyState extends HomeScreenState {}
+class OpenSearchScreenState extends HomeScreenState {}
 
+class OpenBottomSheetstate extends HomeScreenState {}

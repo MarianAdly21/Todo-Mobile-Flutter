@@ -26,6 +26,13 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
       listener: (context, state) {
         if (state is ConvertThemeState) {
           isDark = state.isDark;
+        } else if (state is OpenBottomSheetstate) {
+          showModalBottomSheet(
+              isScrollControlled: true,
+              context: context,
+              builder: (context) {
+                return _addTaskBottomSheet(context);
+              });
         }
       },
       buildWhen: (previous, current) => current is ConvertThemeState,
@@ -109,14 +116,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                 backgroundColor: AppColors.colorTaskItem,
                 shape: const CircleBorder(),
                 onPressed: () {
-                  //context.read<HomeScreenBloc>().add(OpenBottomSheetEvent());
-
-                  showModalBottomSheet(
-                      isScrollControlled: true,
-                      context: context,
-                      builder: (context) {
-                        return _addTaskBottomSheet(context);
-                      });
+                  context.read<HomeScreenBloc>().add(OpenBottomSheetEvent());
                 },
                 child: const Icon(
                   Icons.add,

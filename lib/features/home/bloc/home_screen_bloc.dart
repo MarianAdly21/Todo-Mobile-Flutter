@@ -23,6 +23,7 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
     on<ConvertUIEvent>(_convertUiEvent);
     on<ConvertThemeEvent>(_convertThemEvent);
     on<OpenSearchScreenEvent>(_openSearchScreenEvent);
+    on<OpenBottomSheetEvent>(_openBottomSheetEvent);
   }
 
   FutureOr<void> _loadedTasksEvent(
@@ -79,6 +80,11 @@ class HomeScreenBloc extends Bloc<HomeScreenEvent, HomeScreenState> {
 
   FutureOr<void> _openSearchScreenEvent(
       OpenSearchScreenEvent event, Emitter<HomeScreenState> emit) {
-    emit(OpenSearchScreenSuccessfullyState());
+    emit(OpenSearchScreenState());
+  }
+
+  FutureOr<void> _openBottomSheetEvent(
+      OpenBottomSheetEvent event, Emitter<HomeScreenState> emit) {
+    emit(OpenBottomSheetstate());
   }
 }
