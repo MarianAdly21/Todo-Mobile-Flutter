@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_mobile/features/home/widgets/custom_task_item.dart';
-import 'package:todo_mobile/features/search/cubit/search_cubit/search_cubit.dart';
-import 'package:todo_mobile/features/search/cubit/search_cubit/search_state.dart';
+import 'package:todo_mobile/features/search/bloc/search_screen_bloc.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 import 'package:todo_mobile/utils/local/app_localization_keys.dart';
 
@@ -13,20 +12,20 @@ class SearchScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SearchCubit(),
-      child: SearchScreenWithCubit(isDark: isDark),
+      create: (context) => SearchScreenBloc(),
+      child: SearchScreenWithBloc(isDark: isDark),
     );
   }
 }
 
-class SearchScreenWithCubit extends StatefulWidget {
-  const SearchScreenWithCubit({super.key, required this.isDark});
+class SearchScreenWithBloc extends StatefulWidget {
+  const SearchScreenWithBloc({super.key, required this.isDark});
   final bool isDark;
   @override
-  State<SearchScreenWithCubit> createState() => _SearchScreenWithCubitState();
+  State<SearchScreenWithBloc> createState() => _SearchScreenWithBlocState();
 }
 
-class _SearchScreenWithCubitState extends State<SearchScreenWithCubit> {
+class _SearchScreenWithBlocState extends State<SearchScreenWithBloc> {
   final TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -42,7 +41,14 @@ class _SearchScreenWithCubitState extends State<SearchScreenWithCubit> {
   }
 
   Widget _searchedListWidget() {
-    return BlocBuilder<SearchCubit, SearchState>(
+    return BlocConsumer<SearchScreenBloc, SearchScreenState>(
+      listener: (context, state) {
+        if (state is DeleteFromSearchFormState) {
+          _controller.clear();
+          _getTaskEvent(_controller.text);
+          setState(() {});
+        }
+      },
       builder: (context, state) {
         if (state is SearchLoadedState) {
           if (state.tasksFounded.isNotEmpty) {
@@ -62,7 +68,8 @@ class _SearchScreenWithCubitState extends State<SearchScreenWithCubit> {
             );
           } else {
             return Center(
-              child: Text("noTasks",
+              child: Text(
+                "noTasks",
                 style: TextStyle(
                   fontSize: 30,
                   fontWeight: FontWeight.w800,
@@ -84,8 +91,8 @@ class _SearchScreenWithCubitState extends State<SearchScreenWithCubit> {
       child: TextFormField(
         style: TextStyle(color: widget.isDark ? Colors.white : Colors.black),
         cursorColor: widget.isDark ? Colors.white : Colors.black,
-        onChanged: (value) {
-          _getTaskSearch(value);
+        onChanged: (titleSearch) {
+          _getTaskEvent(titleSearch);
         },
         controller: _controller,
         decoration: InputDecoration(
@@ -93,7 +100,7 @@ class _SearchScreenWithCubitState extends State<SearchScreenWithCubit> {
               _buildBorderTextFormField(color: AppColors.colorTaskItem),
           border: _buildBorderTextFormField(),
           enabledBorder: _buildBorderTextFormField(),
-          hintText:"search",
+          hintText: "search",
           hintStyle: const TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.w400,
@@ -106,9 +113,10 @@ class _SearchScreenWithCubitState extends State<SearchScreenWithCubit> {
               color: AppColors.colorSearchIcon,
             ),
             onPressed: () {
-              _controller.clear();
-              _getTaskSearch(_controller.text);
-              setState(() {});
+              currentBloc().add(DeleteFromSearchFormEvent());
+              // _controller.clear();
+              // _getTaskEvent(_controller.text);
+              // setState(() {});
             },
           ),
         ),
@@ -126,7 +134,9 @@ class _SearchScreenWithCubitState extends State<SearchScreenWithCubit> {
     );
   }
 
-  void _getTaskSearch(value) {
-    BlocProvider.of<SearchCubit>(context).getTaskSearch(value);
+  SearchScreenBloc currentBloc() => context.read<SearchScreenBloc>();
+
+  void _getTaskEvent(titleSearch) {
+    currentBloc().add(GetTasksEvent(titleSearch: titleSearch));
   }
 }

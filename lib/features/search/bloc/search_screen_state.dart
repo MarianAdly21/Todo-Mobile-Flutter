@@ -15,3 +15,4 @@ class SearchLoadedState extends SearchScreenState {
   final List<TaskModel> tasksFounded;
   SearchLoadedState({required this.tasksFounded});
 }
+class DeleteFromSearchFormState extends SearchScreenState {}
