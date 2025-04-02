@@ -1,1 +1,9 @@
-{}
+{
+    "my_tasks": "My Tasks",
+    "whats_on_your_mind": "Whats on your mind?",
+    "home": "Home",
+    "night_ligth": "Night Ligth",
+    "day_ligth": "Day Ligth",
+    "search": "Search",
+    "no_tasks": "No Tasks"
+}

@@ -1,5 +1,5 @@
 // DO NOT EDIT. This is code generated via package:intl/generate_localized.dart
-// This is a library that provides messages for a en locale. All the
+// This is a library that provides messages for a ar locale. All the
 // messages from the main program should be duplicated here with the same
 // function name.
 
@@ -18,17 +18,17 @@ final messages = new MessageLookup();
 typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 
 class MessageLookup extends MessageLookupByLibrary {
-  String get localeName => 'en';
+  String get localeName => 'ar';
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
-        "day_ligth": MessageLookupByLibrary.simpleMessage("Day Ligth"),
-        "home": MessageLookupByLibrary.simpleMessage("Home"),
-        "my_tasks": MessageLookupByLibrary.simpleMessage("My Tasks"),
-        "night_ligth": MessageLookupByLibrary.simpleMessage("Night Ligth"),
-        "no_tasks": MessageLookupByLibrary.simpleMessage("No Tasks"),
-        "search": MessageLookupByLibrary.simpleMessage("Search"),
+        "day_ligth": MessageLookupByLibrary.simpleMessage("ضوء الليل"),
+        "home": MessageLookupByLibrary.simpleMessage("رئيسي"),
+        "my_tasks": MessageLookupByLibrary.simpleMessage("مهامي"),
+        "night_ligth": MessageLookupByLibrary.simpleMessage("ضوء النهار"),
+        "no_tasks": MessageLookupByLibrary.simpleMessage("لا توجد مهام"),
+        "search": MessageLookupByLibrary.simpleMessage("يبحث"),
         "whats_on_your_mind":
-            MessageLookupByLibrary.simpleMessage("Whats on your mind?")
+            MessageLookupByLibrary.simpleMessage("ما الذي يدور في ذهنك؟")
       };
 }
