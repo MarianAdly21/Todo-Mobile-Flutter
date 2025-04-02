@@ -2,4 +2,8 @@ part of 'localization_bloc.dart';
 
 @immutable
 sealed class LocalizationEvent {}
-class ChangeLanguageEvent extends LocalizationEvent{}
+
+class TapToChangeLanguageEvent extends LocalizationEvent {
+ 
+
+}

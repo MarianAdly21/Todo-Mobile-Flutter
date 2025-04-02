@@ -7,6 +7,8 @@ import 'package:todo_mobile/features/home/widgets/custom_icon.dart';
 import 'package:todo_mobile/features/home/widgets/task_item_grid.dart';
 import 'package:todo_mobile/features/home/widgets/task_item_list.dart';
 import 'package:todo_mobile/features/search/screens/search_screen.dart';
+import 'package:todo_mobile/generated/l10n.dart';
+import 'package:todo_mobile/localization/bloc/localization_bloc.dart';
 import 'package:todo_mobile/res/app_asset_paths.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 
@@ -90,7 +92,7 @@ class _HomeScreenWithblocState extends State<HomeScreenWithbloc> {
             padding: const EdgeInsetsDirectional.only(
                 start: 20, end: 39, top: 49, bottom: 27),
             child: Text(
-              "whats on your mind",
+             S.of(context).whats_on_your_mind,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
@@ -141,7 +143,7 @@ class _HomeScreenWithblocState extends State<HomeScreenWithbloc> {
       leadingWidth: 90,
       leading: appBarLeadingWidget(),
       title: Text(
-        "My Tasks",
+        S.of(context).my_tasks,
         style: TextStyle(
           color: isDark ? Colors.white : const Color(0xffFF0000),
           fontSize: 32,
@@ -166,6 +168,7 @@ class _HomeScreenWithblocState extends State<HomeScreenWithbloc> {
         ),
         IconButton(
             onPressed: () {
+              context.read<LocalizationBloc>().add(TapToChangeLanguageEvent());
               // isEnglash = !isEnglash;
               // setState(() {});
               // if (isEnglash) {

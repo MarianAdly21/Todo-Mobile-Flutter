@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_mobile/features/home/bloc/home_screen_bloc.dart';
 import 'package:todo_mobile/features/home/models/task_model.dart';
 import 'package:todo_mobile/features/home/widgets/add_task_form.dart';
+import 'package:todo_mobile/generated/l10n.dart';
 import 'package:todo_mobile/res/app_colors.dart';
 import 'package:todo_mobile/utils/local/app_localization_keys.dart';
 
@@ -44,19 +45,20 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 80, vertical: 16),
+                 Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 80, vertical: 16),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(
+                    const  Icon(
                         Icons.home_outlined,
                         weight: 18,
                         color: AppColors.colorTaskItem,
                       ),
                       Text(
-                        "home",
-                        style: TextStyle(
+                       S.of(context).home,
+                        style: const TextStyle(
                             color: AppColors.colorTaskItem,
                             fontSize: 12,
                             fontWeight: FontWeight.w600),
@@ -72,34 +74,34 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 60, vertical: 16),
                     child: isDark
-                        ? const Column(
+                        ?  Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
+                            const  Icon(
                                 Icons.light_mode_outlined,
                                 weight: 18,
                                 color: Colors.white,
                               ),
                               Text(
-                                "dayLigth",
-                                style: TextStyle(
+                               S.of(context).day_ligth,
+                                style:const TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),
                               )
                             ],
                           )
-                        : const Column(
+                        :  Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(
+                            const  Icon(
                                 Icons.nightlight_outlined,
                                 weight: 18,
                                 color: Colors.black,
                               ),
                               Text(
-                                "nightLigth",
-                                style: TextStyle(
+                               S.of(context).night_ligth,
+                                style: const TextStyle(
                                     color: Colors.black,
                                     fontSize: 14,
                                     fontWeight: FontWeight.w600),
